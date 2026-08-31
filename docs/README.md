@@ -15,6 +15,8 @@ sync-overwritten, edit them upstream" model is gone: edit any doc here freely.
 | [`RUNBOOK-ios-firebase.md`](./RUNBOOK-ios-firebase.md) | The one Firebase project (`flygaca-app`) behind every app; §4a's Sign in with Apple grouping matters only if sign-in ships, and names a paused module as primary — read it with `ROADMAP.md` in hand. |
 | [`RUNBOOK-ios-xcodebuild.md`](./RUNBOOK-ios-xcodebuild.md) | Build/CI/troubleshooting reference, incl. "Adding a New iOS App". Its "Phase Roadmap" numbering diverges from `apple/ARCHITECTURE.md` §5 — the architecture doc wins. |
 | [`PORTAL-RUNSHEET-wave1.md`](./PORTAL-RUNSHEET-wave1.md) | The click-ordered Apple portal + App Store Connect runsheet — every value pre-filled from the repos. Written for a three-app Wave 1; its PPL rows are annotated as paused. |
+| [`TESTING-sync-suites.md`](./TESTING-sync-suites.md) | The two `PersistenceKitTests` sync suites (App Group + Firestore, 21 tests) — what they pin, and the warning that they have not been run yet. |
+| [`CORPUS-SIGNING.md`](./CORPUS-SIGNING.md) | The Ed25519 keypair/signing procedure for the remote quiz corpus. |
 | `README.md` | This index. |
 
 > These runbooks and `apple/ARCHITECTURE.md` / `apple/README.md` began as copies of the monorepo's
