@@ -67,3 +67,87 @@
    (src/i18n/en.json in the FlyGACA-app monorepo). Never reword. */
 "disclaimer.strong" = "Fly GACA is an independent educational platform.";
 "disclaimer.body" = "It is not affiliated with, endorsed by, or operated by the General Authority of Civil Aviation (GACA) or the Government of the Kingdom of Saudi Arabia. The official and authoritative source for all civil aviation regulations, publications, and aeronautical information is always GACA. Always verify against the latest official GACA publication at gaca.gov.sa.";
+
+/* Navigation Tabs */
+"tab.home" = "Home";
+"tab.academics" = "Academics";
+"tab.flightDeck" = "Flight Deck";
+"tab.captainAdel" = "Captain Adel";
+"tab.regulations" = "Regulations";
+
+/* Home Dashboard */
+"dash.captainDeck" = "Captain Deck";
+"dash.flightBag" = "Saudi Civil Aviation Flight Bag";
+"dash.dayStreak" = "DAY STREAK";
+"dash.featuredRating" = "FEATURED RATING";
+"dash.continueDeck" = "Continue Study Deck";
+"dash.examReadiness" = "Exam Readiness";
+"dash.allModules" = "All Modules (%lld)";
+"dash.corpus" = "Question Corpus";
+"dash.attempts" = "Exam Attempts";
+"dash.passed" = "%lld Passed";
+"dash.flightDeckTools" = "Flight Deck Calculators";
+"dash.openHub" = "Open Hub";
+"dash.adelTitle" = "Captain Adel AI";
+"dash.adelSubtitle" = "GACA Grounded Flight Instructor";
+"dash.askAdel" = "Ask Captain Adel";
+"dash.adelDesc" = "Ask questions about GACAR Part 61/91, holding speeds, VFR weather minimums, or ELPT scenarios.";
+
+/* Flight Deck Tools Hub */
+"tool.hub.title" = "Saudi Civil Aviation Tools";
+"tool.hub.sub" = "High-precision offline calculators and meteorological decoders tailored for GACAR operations.";
+"tool.crosswind.title" = "Crosswind & Runway Visualizer";
+"tool.crosswind.sub" = "Headwind/Tailwind, crosswind components & vector compass";
+"tool.density.title" = "Altimetry & Density Altitude";
+"tool.density.sub" = "Pressure altitude, density altitude & ISA temperature deviation";
+"tool.wb.title" = "Weight & Balance Envelope";
+"tool.wb.sub" = "Aircraft stations, moments & center-of-gravity envelope verification";
+"tool.fuel.title" = "Fuel & Range Planner";
+"tool.fuel.sub" = "Flight burn, endurance & GACAR Part 91 reserve compliance";
+"tool.tsd.title" = "Time, Speed & Distance (TSD)";
+"tool.tsd.sub" = "Wind correction angle, groundspeed & leg ETE computation";
+"tool.unit.title" = "Aviation Unit Converter";
+"tool.unit.sub" = "Speed, distance, altitude, fuel weight & atmospheric conversions";
+"tool.weather.title" = "Saudi Aerodrome METAR / TAF";
+"tool.weather.sub" = "Live flight rules (VFR/IFR), winds & cloud base decoders for KSA";
+
+/* Captain Adel AI */
+"adel.title" = "Captain Adel AI";
+"adel.welcome" = "Marhaba Captain! I am Captain Adel, your AI Flight Instructor grounded in Saudi GACAR regulations and the Saudi AIP. How can I assist with your flight training or exam prep today?";
+"adel.inputPlaceholder" = "Ask Captain Adel about GACAR / AIP...";
+"adel.listen" = "Listen";
+"adel.clearPrompt" = "Conversation cleared. Ready for your next flight training question!";
+
+/* Regulations */
+"reg.title" = "GACAR Library";
+"reg.search" = "Search Part number, e.g. 61, 91, 121...";
+"reg.allParts" = "All Parts (%lld)";
+"reg.subparts" = "Subpart Outline";
+"reg.pages" = "%lld pages";
+"reg.authoritative" = "Authoritative Publication";
+"reg.authoritativeDesc" = "All regulations are published officially by the General Authority of Civil Aviation of Saudi Arabia.";
+"reg.openPortal" = "Open Official GACA Portal (gaca.gov.sa)";
+
+/* Academics */
+"acad.title" = "Academics";
+"acad.search" = "Search PPL, CPL, IR, ATPL, ELPT...";
+"acad.filter.all" = "All Modules";
+"acad.filter.licensing" = "Pilot Licensing";
+"acad.filter.ratings" = "Ratings & AIP";
+"acad.banks" = "%lld Banks";
+"acad.questions" = "%lld Questions";
+"acad.lessons" = "%lld Lessons";
+
+/* Settings */
+"settings.title" = "Settings";
+"settings.general" = "General";
+"settings.language" = "Language";
+"settings.haptics" = "Haptic Feedback";
+"settings.sound" = "Audio Effects";
+"settings.about" = "About";
+"settings.version" = "Version";
+"settings.appID" = "Application ID";
+"settings.resetProgress" = "Reset Study Progress";
+"settings.resetWarning" = "This will erase your study streak, exam history, and flashcard SRS boxes on this device.";
+"settings.resetConfirm" = "Reset All Progress";
+"settings.cancel" = "Cancel";

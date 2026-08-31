@@ -6,8 +6,7 @@ import SwiftUI
 
 /// The home screen every app in the family shares: the module's five core
 /// features (study, quiz, flashcards, mock, timed exam) built entirely from the
-/// module's content. There is no per-module UI code anywhere — this screen IS
-/// the white-label surface.
+/// module's content. White-label Liquid Glass surface.
 struct ModuleHomeView: View {
     let content: ModuleContent
     /// Durable study store (nil ⇒ persistence disabled; the UI still works, it
@@ -39,112 +38,191 @@ struct ModuleHomeView: View {
     }
 
     var body: some View {
-        List {
-            if let groundSchool = content.groundSchool {
-                Section {
-                    ForEach(groundSchool.modules) { module in
-                        NavigationLink(module.title) {
-                            LessonListScreen(module: module, store: store, moduleID: moduleID)
-                        }
-                    }
-                } header: {
-                    Text(Loc.t("home.section.study"))
-                }
-            }
-            if !scenarioQuestions.isEmpty {
-                Section {
-                    NavigationLink {
-                        ScenarioSimulatorView(
-                            questions: scenarioQuestions,
-                            exam: content.exam,
-                            bankTitles: bankTitles,
-                            moduleID: moduleID,
-                            store: store
-                        )
-                    } label: {
-                        HStack(spacing: 10) {
-                            Image(systemName: "headphones")
-                                .foregroundStyle(FGTheme.gold)
-                                .frame(width: 22)
-                            VStack(alignment: .leading, spacing: 2) {
-                                Text(Loc.t("home.simulator.title"))
-                                Text(Loc.t("home.simulator.subtitle", scenarioQuestions.count))
-                                    .font(.caption)
-                                    .foregroundStyle(.secondary)
+        ScrollView {
+            VStack(spacing: 20) {
+                // Ground School Section
+                if let groundSchool = content.groundSchool {
+                    VStack(alignment: .leading, spacing: 12) {
+                        Text(Loc.t("home.section.study"))
+                            .font(.system(size: 10, weight: .black, design: .monospaced))
+                            .foregroundStyle(FGTheme.cyanGlow)
+
+                        ForEach(groundSchool.modules) { module in
+                            NavigationLink {
+                                LessonListScreen(module: module, store: store, moduleID: moduleID)
+                            } label: {
+                                SectionRow(
+                                    icon: "book.fill",
+                                    iconColor: FGTheme.cyanGlow,
+                                    title: module.title,
+                                    subtitle: module.summary
+                                )
                             }
                         }
                     }
-                } header: {
-                    Text(Loc.t("home.section.simulator"))
+                    .glassCard(glowColor: FGTheme.cyanGlow, glowOpacity: 0.08)
                 }
-            }
-            Section {
-                ForEach(content.quiz.banks) { bank in
+
+                // Scenario Simulator Section
+                if !scenarioQuestions.isEmpty {
+                    VStack(alignment: .leading, spacing: 12) {
+                        Text(Loc.t("home.section.simulator"))
+                            .font(.system(size: 10, weight: .black, design: .monospaced))
+                            .foregroundStyle(FGTheme.goldGlow)
+
+                        NavigationLink {
+                            ScenarioSimulatorView(
+                                questions: scenarioQuestions,
+                                exam: content.exam,
+                                bankTitles: bankTitles,
+                                moduleID: moduleID,
+                                store: store
+                            )
+                        } label: {
+                            SectionRow(
+                                icon: "headphones",
+                                iconColor: FGTheme.goldGlow,
+                                title: Loc.t("home.simulator.title"),
+                                subtitle: Loc.t("home.simulator.subtitle", scenarioQuestions.count)
+                            )
+                        }
+                    }
+                    .glassCard(glowColor: FGTheme.gold, glowOpacity: 0.1)
+                }
+
+                // Topic Quizzes Section
+                VStack(alignment: .leading, spacing: 12) {
+                    Text(Loc.t("home.section.quizByTopic"))
+                        .font(.system(size: 10, weight: .black, design: .monospaced))
+                        .foregroundStyle(FGTheme.teal)
+
+                    ForEach(content.quiz.banks) { bank in
+                        NavigationLink {
+                            QuizScreen(
+                                title: bank.title,
+                                session: StudySession(questions: bank.questions, config: .practice),
+                                bankTitles: bankTitles,
+                                moduleID: moduleID,
+                                store: store,
+                                bankID: bank.id
+                            )
+                        } label: {
+                            SectionRow(
+                                icon: icon(for: bank),
+                                iconColor: FGTheme.teal,
+                                title: bank.title,
+                                subtitle: Loc.t("home.questionCount", bank.questions.count)
+                            )
+                        }
+                    }
+                }
+                .glassCard(glowColor: FGTheme.teal, glowOpacity: 0.08)
+
+                // Flashcards Section
+                VStack(alignment: .leading, spacing: 12) {
+                    Text(Loc.t("home.section.flashcards"))
+                        .font(.system(size: 10, weight: .black, design: .monospaced))
+                        .foregroundStyle(FGTheme.sage)
+
+                    ForEach(content.quiz.banks) { bank in
+                        NavigationLink {
+                            FlashcardsScreen(bank: bank, store: store)
+                        } label: {
+                            SectionRow(
+                                icon: "rectangle.on.rectangle.angled",
+                                iconColor: FGTheme.sage,
+                                title: bank.title,
+                                subtitle: "Leitner SRS deck · \(bank.questions.count) cards"
+                            )
+                        }
+                    }
+                }
+                .glassCard(glowColor: FGTheme.sage, glowOpacity: 0.08)
+
+                // Exam Section
+                VStack(alignment: .leading, spacing: 12) {
+                    Text(Loc.t("home.section.exam"))
+                        .font(.system(size: 10, weight: .black, design: .monospaced))
+                        .foregroundStyle(FGTheme.goldGlow)
+
                     NavigationLink {
                         QuizScreen(
-                            title: bank.title,
-                            session: StudySession(questions: bank.questions, config: .practice),
+                            title: Loc.t("home.mockExam.title"),
+                            session: StudySession(
+                                questions: QuestionSampler.draw(
+                                    from: content.quiz.banks, count: content.exam.questionCount),
+                                config: .mock(content.exam)),
                             bankTitles: bankTitles,
                             moduleID: moduleID,
                             store: store,
-                            bankID: bank.id
+                            bankID: nil
                         )
                     } label: {
-                        HStack(spacing: 10) {
-                            Image(systemName: icon(for: bank))
-                                .foregroundStyle(FGTheme.teal)
-                                .frame(width: 22)
-                            VStack(alignment: .leading, spacing: 2) {
-                                Text(bank.title)
-                                Text(Loc.t("home.questionCount", bank.questions.count))
-                                    .font(.caption)
-                                    .foregroundStyle(.secondary)
-                            }
-                        }
+                        SectionRow(
+                            icon: "doc.questionmark",
+                            iconColor: FGTheme.goldGlow,
+                            title: Loc.t("home.mockExam.untimed"),
+                            subtitle: "\(content.exam.questionCount) Questions · Immediate Feedback"
+                        )
                     }
-                }
-            } header: {
-                Text(Loc.t("home.section.quizByTopic"))
-            }
-            Section {
-                ForEach(content.quiz.banks) { bank in
+
                     NavigationLink {
-                        FlashcardsScreen(bank: bank, store: store)
+                        ExamScreen(content: content, bankTitles: bankTitles, moduleID: moduleID, store: store)
                     } label: {
-                        Label(bank.title, systemImage: "rectangle.on.rectangle.angled")
+                        SectionRow(
+                            icon: "timer",
+                            iconColor: FGTheme.clay,
+                            title: Loc.t("home.exam.timed", content.exam.minutes, content.exam.passMark),
+                            subtitle: "Official Timer · Strict Scoring"
+                        )
                     }
                 }
-            } header: {
-                Text(Loc.t("home.section.flashcards"))
-            }
-            Section {
-                NavigationLink {
-                    QuizScreen(
-                        title: Loc.t("home.mockExam.title"),
-                        session: StudySession(
-                            questions: QuestionSampler.draw(
-                                from: content.quiz.banks, count: content.exam.questionCount),
-                            config: .mock(content.exam)),
-                        bankTitles: bankTitles,
-                        moduleID: moduleID,
-                        store: store,
-                        bankID: nil
-                    )
-                } label: {
-                    Label(Loc.t("home.mockExam.untimed"), systemImage: "doc.questionmark")
-                }
-                NavigationLink {
-                    ExamScreen(content: content, bankTitles: bankTitles, moduleID: moduleID, store: store)
-                } label: {
-                    Label(Loc.t("home.exam.timed", content.exam.minutes, content.exam.passMark), systemImage: "timer")
-                }
-            } header: {
-                Text(Loc.t("home.section.exam"))
-            }
-            Section {
+                .glassCard(glowColor: FGTheme.gold, glowOpacity: 0.1)
+
                 Disclaimer()
             }
+            .padding()
         }
+        .cockpitBackground()
+    }
+}
+
+private struct SectionRow: View {
+    let icon: String
+    let iconColor: Color
+    let title: String
+    let subtitle: String
+
+    var body: some View {
+        HStack(spacing: 12) {
+            ZStack {
+                Circle()
+                    .fill(iconColor.opacity(0.15))
+                    .frame(width: 42, height: 42)
+                Image(systemName: icon)
+                    .font(.headline)
+                    .foregroundStyle(iconColor)
+            }
+
+            VStack(alignment: .leading, spacing: 2) {
+                Text(title)
+                    .font(.subheadline.weight(.bold))
+                    .foregroundStyle(.white)
+                Text(subtitle)
+                    .font(.caption)
+                    .foregroundStyle(Color.white.opacity(0.7))
+                    .lineLimit(1)
+            }
+
+            Spacer()
+
+            Image(systemName: "chevron.right")
+                .font(.caption.bold())
+                .foregroundStyle(iconColor)
+        }
+        .padding(10)
+        .background(FGTheme.surface)
+        .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
     }
 }
 
@@ -159,33 +237,53 @@ struct LessonListScreen: View {
     @State private var doneIDs: Set<String> = []
 
     var body: some View {
-        List {
-            Section {
-                Text(module.summary)
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
-            }
-            ForEach(module.lessons) { lesson in
-                HStack(alignment: .firstTextBaseline) {
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text(lesson.title).font(.headline)
-                        Text(lesson.objective)
-                            .font(.subheadline)
-                            .foregroundStyle(.secondary)
-                    }
-                    Spacer()
-                    Button {
-                        markDone(lesson)
-                    } label: {
-                        Image(systemName: doneIDs.contains(lesson.id) ? "checkmark.circle.fill" : "circle")
-                            .foregroundStyle(doneIDs.contains(lesson.id) ? FGTheme.sage : Color.secondary)
-                    }
-                    .buttonStyle(.plain)
-                    .accessibilityLabel(Loc.t(doneIDs.contains(lesson.id) ? "a11y.completed" : "a11y.markComplete"))
+        ScrollView {
+            VStack(alignment: .leading, spacing: 16) {
+                VStack(alignment: .leading, spacing: 6) {
+                    Text(module.title)
+                        .font(.title3.weight(.bold))
+                        .foregroundStyle(FGTheme.goldGlow)
+                    Text(module.summary)
+                        .font(.subheadline)
+                        .foregroundStyle(Color.white.opacity(0.8))
                 }
-                .padding(.vertical, 2)
+                .glassCard(glowColor: FGTheme.gold, glowOpacity: 0.1)
+
+                VStack(spacing: 10) {
+                    ForEach(module.lessons) { lesson in
+                        HStack(alignment: .firstTextBaseline) {
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text(lesson.title)
+                                    .font(.headline)
+                                    .foregroundStyle(.white)
+                                Text(lesson.objective)
+                                    .font(.subheadline)
+                                    .foregroundStyle(Color.white.opacity(0.7))
+                            }
+                            Spacer()
+                            Button {
+                                markDone(lesson)
+                            } label: {
+                                Image(systemName: doneIDs.contains(lesson.id) ? "checkmark.circle.fill" : "circle")
+                                    .font(.title3)
+                                    .foregroundStyle(doneIDs.contains(lesson.id) ? FGTheme.sage : Color.secondary)
+                            }
+                            .buttonStyle(.plain)
+                            .accessibilityLabel(Loc.t(doneIDs.contains(lesson.id) ? "a11y.completed" : "a11y.markComplete"))
+                        }
+                        .padding(14)
+                        .background(FGTheme.deep)
+                        .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 14, style: .continuous)
+                                .strokeBorder(doneIDs.contains(lesson.id) ? FGTheme.sage.opacity(0.4) : FGTheme.mist, lineWidth: 1)
+                        )
+                    }
+                }
             }
+            .padding()
         }
+        .cockpitBackground()
         .navigationTitle(module.title)
         .task { await loadDone() }
     }
@@ -200,10 +298,11 @@ struct LessonListScreen: View {
     private func markDone(_ lesson: GSLesson) {
         guard !doneIDs.contains(lesson.id) else { return }
         doneIDs.insert(lesson.id)
+        HapticFeedback.success()
         guard let store else { return }
         Task {
-            try? await store.markLessonDone(moduleID: moduleID, lessonID: lesson.id)
-            try? await store.touchStreak()
+            _ = try? await store.markLessonDone(moduleID: moduleID, lessonID: lesson.id)
+            _ = try? await store.touchStreak()
         }
     }
 }
@@ -214,7 +313,7 @@ struct QuizScreen: View {
     let bankTitles: [String: String]
     let moduleID: String
     let store: StudyStore?
-    /// Non-nil for a single-topic quiz (the bank's id → best-per-bank score);
+    /// Non-nil for a single-topic quiz (the bank's id ⇒ best-per-bank score);
     /// nil for the multi-bank mock exam (recorded as an exam attempt).
     let bankID: String?
 
@@ -227,19 +326,19 @@ struct QuizScreen: View {
         guard let store else { return }
         Task {
             if let bankID {
-                try? await store.recordQuizScore(
+                _ = try? await store.recordQuizScore(
                     moduleID: moduleID, bankID: bankID, percent: result.percent)
             } else {
-                try? await store.recordExam(moduleID: moduleID, result: result)
+                _ = try? await store.recordExam(moduleID: moduleID, result: result)
             }
-            try? await store.touchStreak()
+            _ = try? await store.touchStreak()
         }
     }
 
     private func flag(_ question: Question, flagged: Bool) {
         guard let store else { return }
         Task {
-            try? await store.setFlag(
+            _ = try? await store.setFlag(
                 moduleID: moduleID, bankID: question.bankID, index: question.index, flagged: flagged)
         }
     }
@@ -278,15 +377,15 @@ struct ExamScreen: View {
     private func persist(_ result: SessionResult) {
         guard let store else { return }
         Task {
-            try? await store.recordExam(moduleID: moduleID, result: result)
-            try? await store.touchStreak()
+            _ = try? await store.recordExam(moduleID: moduleID, result: result)
+            _ = try? await store.touchStreak()
         }
     }
 
     private func flag(_ question: Question, flagged: Bool) {
         guard let store else { return }
         Task {
-            try? await store.setFlag(
+            _ = try? await store.setFlag(
                 moduleID: moduleID, bankID: question.bankID, index: question.index, flagged: flagged)
         }
     }
@@ -308,8 +407,10 @@ struct FlashcardsScreen: View {
         VStack {
             if let question = card {
                 Text(Loc.t("flashcards.cardProgress", index + 1, deck.count))
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
+                    .font(.system(.caption, design: .monospaced, weight: .bold))
+                    .foregroundStyle(FGTheme.cyanGlow)
+                    .padding(.top)
+
                 FlashcardView(
                     front: question.prompt,
                     back: "\(question.correctChoice)\n\n\(question.explanation)"
@@ -318,12 +419,15 @@ struct FlashcardsScreen: View {
                 }
             } else {
                 ContentUnavailableView {
-                    Label(Loc.t("flashcards.deckComplete"), systemImage: "checkmark.seal")
+                    Label(Loc.t("flashcards.deckComplete"), systemImage: "checkmark.seal.fill")
+                        .foregroundStyle(FGTheme.sage)
                 } description: {
                     Text(Loc.t("flashcards.cardsOnTrack", Leitner.masteredCount(in: srs)))
+                        .foregroundStyle(.white)
                 }
             }
         }
+        .cockpitBackground()
         .navigationTitle(bank.title)
         .task { await loadInitialSRS() }
     }
@@ -352,7 +456,7 @@ struct FlashcardsScreen: View {
         guard let store else { return }
         Task {
             _ = try? await store.grade(question: question, correct: correct)
-            try? await store.touchStreak()
+            _ = try? await store.touchStreak()
         }
     }
 }

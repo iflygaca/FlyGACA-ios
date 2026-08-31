@@ -238,6 +238,17 @@ public actor StudyStore {
         }
     }
 
+    // ── Reset Progress ──
+
+    /// Clear all user study state (exams, flashcards/SRS, quiz scores, lessons done, flags, streaks).
+    public func resetAllProgress() throws {
+        try modelContext.delete(model: ExamAttemptRecord.self)
+        try modelContext.delete(model: CardSRSRecord.self)
+        try modelContext.delete(model: ModuleProgressRecord.self)
+        try modelContext.delete(model: StreakRecord.self)
+        try modelContext.save()
+    }
+
     // ── Streak ──
 
     /// Advance the family-wide streak for a study event now.
@@ -256,6 +267,14 @@ public actor StudyStore {
         }
         try modelContext.save()
         return next
+    }
+
+    /// Current family-wide streak snapshot without advancing it.
+    public func currentStreak() throws -> Streak {
+        var descriptor = FetchDescriptor<StreakRecord>(predicate: #Predicate { $0.key == "streak" })
+        descriptor.fetchLimit = 1
+        let record = try modelContext.fetch(descriptor).first
+        return record.map { Streak(day: $0.day, count: $0.count) } ?? .none
     }
 
     // ── Blob helpers ──

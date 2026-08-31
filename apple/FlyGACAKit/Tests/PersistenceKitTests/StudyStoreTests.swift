@@ -222,6 +222,33 @@ final class StudyStoreTests: XCTestCase {
         XCTAssertEqual(bankB, [], "A different bank in the same module starts unflagged.")
     }
 
+    // MARK: - Reset All Progress
+
+    func testResetAllProgressClearsAllUserData() async throws {
+        let store = try makeStore()
+        let epoch = Date(timeIntervalSince1970: 0)
+
+        let result = SessionResult(total: 10, correct: 9, percent: 90, passed: true, byBank: [:], duration: 60, finishedAt: epoch)
+        try await store.recordExam(moduleID: "ppl-exam", result: result)
+        try await store.recordQuizScore(moduleID: "ppl-exam", bankID: "bank-a", percent: 85)
+        try await store.markLessonDone(moduleID: "ppl-exam", lessonID: "lesson-1")
+        try await store.touchStreak(now: epoch)
+
+        try await store.resetAllProgress()
+
+        let history = try await store.examHistory(moduleID: "ppl-exam")
+        XCTAssertTrue(history.isEmpty)
+
+        let best = try await store.quizBest(moduleID: "ppl-exam")
+        XCTAssertTrue(best.isEmpty)
+
+        let done = try await store.lessonsDone(moduleID: "ppl-exam")
+        XCTAssertTrue(done.isEmpty)
+
+        let streak = try await store.currentStreak()
+        XCTAssertEqual(streak.count, 0)
+    }
+
     // MARK: - Streak
 
     func testTouchStreakAdvancesByDayGaps() async throws {

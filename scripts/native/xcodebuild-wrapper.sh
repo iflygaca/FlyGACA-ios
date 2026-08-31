@@ -16,8 +16,8 @@ APP="${1:-info}"
 CONFIGURATION="${2:-debug}"
 SCHEME_OVERRIDE="${3:-}"
 
-# Supported apps. The licence-exam modules (ppl/cpl/ir/atpl) are paused — see ROADMAP.md.
-APPS=("elpt" "aip")
+# Supported apps: FlyGACA (flagship unified app) + standalone targets (ELPT, AIP)
+APPS=("flygaca" "elpt" "aip")
 
 # Color output
 RED='\033[0;31m'
@@ -105,26 +105,28 @@ generate_content() {
   local app=$1
   log_info "Generating content for $app..."
 
-  if [ ! -f "$PROJECT_ROOT/scripts/build-ios-content.mjs" ]; then
-    local app_dir
-    app_dir=$(echo "$app" | tr '[:lower:]' '[:upper:]')
-    local module_json="$PROJECT_ROOT/apple/Apps/$app_dir/Content/module.json"
-    if [ ! -f "$module_json" ]; then
-      log_error "No content bundler and no committed content at apple/Apps/$app_dir/Content/"
-      echo "  Refresh content from a FlyGACA-app clone: bash scripts/sync-content.sh" >&2
-      exit 1
-    fi
-    log_warn "Content bundler not in this repo — building with the committed Content/ snapshot"
-    echo "  (refresh it from a FlyGACA-app clone: bash scripts/sync-content.sh)"
+  local app_dir
+  case "$app" in
+    flygaca|FlyGACA)
+      app_dir="FlyGACA"
+      ;;
+    *)
+      app_dir=$(echo "$app" | tr '[:lower:]' '[:upper:]')
+      ;;
+  esac
+
+  if [ -d "$PROJECT_ROOT/apple/Apps/$app_dir/Content" ]; then
+    log_success "Content bundle present at apple/Apps/$app_dir/Content"
     return 0
   fi
 
-  if ! node "$PROJECT_ROOT/scripts/build-ios-content.mjs" --app "$app"; then
-    log_error "Content generation failed for $app"
-    exit 1
+  if [ -f "$PROJECT_ROOT/scripts/sync-content.sh" ]; then
+    bash "$PROJECT_ROOT/scripts/sync-content.sh"
+    return 0
   fi
 
-  log_success "Content generated for $app"
+  log_error "No content found at apple/Apps/$app_dir/Content/"
+  exit 1
 }
 
 # Generate the Xcode project from apple/project.yml via XcodeGen.
@@ -236,6 +238,11 @@ build_app() {
 
   # Map app name to scheme and bundle ID
   case "$app" in
+    flygaca)
+      SCHEME="FlyGACA"
+      BUNDLE_ID="com.flygaca.app"
+      MODULE_ID="all"
+      ;;
     elpt)
       SCHEME="ELPT"
       BUNDLE_ID="com.flygaca.elpt"
@@ -390,7 +397,7 @@ main() {
       done
       log_success "All builds completed successfully"
       ;;
-    elpt|aip)
+    flygaca|elpt|aip)
       check_prerequisites
       generate_project
       generate_content "$APP"
@@ -401,7 +408,7 @@ main() {
       echo ""
       echo "Usage: $0 <app|all|info> [debug|release]"
       echo ""
-      echo "Apps: elpt, aip, all"
+      echo "Apps: flygaca, elpt, aip, all"
       echo "Config: debug (default), release"
       exit 1
       ;;

@@ -25,7 +25,11 @@ struct FlyGACAApp: App {
 
     var body: some Scene {
         WindowGroup {
-            SingleModuleRootView(moduleID: moduleID, store: store)
+            if let moduleID, moduleID != "all" {
+                SingleModuleRootView(moduleID: moduleID, store: store)
+            } else {
+                MainAppView(store: store)
+            }
         }
     }
 }
