@@ -9,6 +9,7 @@ const OUT = process.env.SCREENSHOT_OUT
 // resolve its own bundled browser. In this repo's dev container the pre-installed
 // build lives at /opt/pw-browsers/chromium.
 const CHROME = process.env.CHROME_PATH || undefined;
+const LANG = process.env.SCREENSHOT_LANG || 'en';
 
 // The App Store family: one focused product per study module. Screenshots differ
 // only by the module's own content + name (shared FeatureUI chrome).
@@ -30,9 +31,10 @@ const SLOTS = {
 (async () => {
   const browser = await chromium.launch(CHROME ? { executablePath: CHROME } : {});
   for (const app of APPS) {
-    const screens = buildScreens(app);
+    const screens = buildScreens(app, LANG);
     for (const [slot, spec] of Object.entries(SLOTS)) {
-      const dir = path.join(OUT, app.dir, slot);
+      const langDir = LANG === 'ar' ? `${slot}-ar` : slot;
+      const dir = path.join(OUT, app.dir, langDir);
       fs.mkdirSync(dir, { recursive: true });
       const ctx = await browser.newContext({
         viewport: { width: spec.width, height: spec.height },
@@ -44,7 +46,7 @@ const SLOTS = {
         const file = path.join(dir, `${name}.png`);
         await pg.screenshot({ path: file });
         const kb = (fs.statSync(file).size / 1024).toFixed(0);
-        console.log(`  ✓ ${app.dir}/${slot}/${name}.png (${kb} KB)`);
+        console.log(`  ✓ ${app.dir}/${langDir}/${name}.png (${kb} KB)`);
       }
       await ctx.close();
     }
