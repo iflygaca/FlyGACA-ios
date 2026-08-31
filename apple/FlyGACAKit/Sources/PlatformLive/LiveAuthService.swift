@@ -2,8 +2,8 @@ import AppServices
 import CoreModels
 import Foundation
 
-/// Production implementation of `AuthProviding` communicating with Firebase Auth services.
-public final class FirebaseAuthService: AuthProviding, @unchecked Sendable {
+/// Production implementation of `AuthProviding` communicating with authentication services.
+public final class LiveAuthService: AuthProviding, @unchecked Sendable {
     private var _userID: String?
     private let lock = NSLock()
 
@@ -29,3 +29,5 @@ public final class FirebaseAuthService: AuthProviding, @unchecked Sendable {
         }
     }
 }
+
+public typealias FirebaseAuthService = LiveAuthService

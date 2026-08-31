@@ -2,21 +2,33 @@ import AppServices
 import CoreModels
 import Foundation
 
-/// Uploads progress summaries to Firestore at `users/{uid}/progress/summary`,
+/// Uploads progress summaries to backend REST sync at `https://flygaca.com/api/progress/summary`,
 /// matching the web app's `ProgressSummary` data contract.
-public struct FirebaseProgressSync: ProgressSyncing, Sendable {
-    public let projectID: String
+public struct LiveProgressSync: ProgressSyncing, Sendable {
+    public let endpointURL: URL
     public let authProvider: any AuthProviding
     private let urlSession: URLSession
 
     public init(
-        projectID: String = "flygaca-app",
+        endpointURL: URL = URL(string: "https://flygaca.com/api/progress/summary")!,
         authProvider: any AuthProviding,
         urlSession: URLSession = .shared
     ) {
-        self.projectID = projectID
+        self.endpointURL = endpointURL
         self.authProvider = authProvider
         self.urlSession = urlSession
+    }
+
+    public init(
+        projectID: String,
+        authProvider: any AuthProviding,
+        urlSession: URLSession = .shared
+    ) {
+        self.init(
+            endpointURL: URL(string: "https://flygaca.com/api/progress/summary")!,
+            authProvider: authProvider,
+            urlSession: urlSession
+        )
     }
 
     public func upload(_ summary: ProgressSummary) async throws {
@@ -25,12 +37,12 @@ public struct FirebaseProgressSync: ProgressSyncing, Sendable {
             return
         }
 
-        let endpoint = URL(string: "https://firestore.googleapis.com/v1/projects/\(projectID)/databases/(default)/documents/users/\(uid)/progress/summary")!
-        var request = URLRequest(url: endpoint)
-        request.httpMethod = "PATCH"
+        var request = URLRequest(url: endpointURL)
+        request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \(uid)", forHTTPHeaderField: "Authorization")
 
-        let payload = FirestoreDocumentEncoder.encode(summary)
+        let payload = ProgressDocumentEncoder.encode(summary)
         request.httpBody = try JSONSerialization.data(withJSONObject: payload, options: [])
 
         let (_, response) = try await urlSession.data(for: request)
@@ -40,8 +52,10 @@ public struct FirebaseProgressSync: ProgressSyncing, Sendable {
     }
 }
 
-/// Utility for converting `ProgressSummary` into Firestore REST API document field structure.
-public enum FirestoreDocumentEncoder {
+public typealias FirebaseProgressSync = LiveProgressSync
+
+/// Utility for converting `ProgressSummary` into JSON document structure.
+public enum ProgressDocumentEncoder {
     public static func encode(_ summary: ProgressSummary) -> [String: Any] {
         var fields: [String: Any] = [:]
 
@@ -73,3 +87,5 @@ public enum FirestoreDocumentEncoder {
         return ["fields": fields]
     }
 }
+
+public typealias FirestoreDocumentEncoder = ProgressDocumentEncoder

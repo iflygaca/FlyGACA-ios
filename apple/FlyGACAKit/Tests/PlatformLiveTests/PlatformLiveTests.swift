@@ -5,7 +5,7 @@ import XCTest
 
 final class PlatformLiveTests: XCTestCase {
 
-    func testFirestoreDocumentEncoderFormatsProgressSummaryCorrectly() {
+    func testProgressDocumentEncoderFormatsProgressSummaryCorrectly() {
         let now = Date()
         let summary = ProgressSummary(
             quizBest: ["bank_1": 95, "bank_2": 80],
@@ -15,7 +15,7 @@ final class PlatformLiveTests: XCTestCase {
             updatedAt: now
         )
 
-        let document = FirestoreDocumentEncoder.encode(summary)
+        let document = ProgressDocumentEncoder.encode(summary)
         guard let fields = document["fields"] as? [String: Any] else {
             XCTFail("Missing 'fields' dictionary in encoded document")
             return
@@ -47,8 +47,8 @@ final class PlatformLiveTests: XCTestCase {
         XCTAssertEqual(values[1]["stringValue"], "lesson_2")
     }
 
-    func testFirebaseAuthServiceManagesUserID() async throws {
-        let auth = FirebaseAuthService(userID: "user_123")
+    func testLiveAuthServiceManagesUserID() async throws {
+        let auth = LiveAuthService(userID: "user_123")
         let currentID = await auth.currentUserID
         XCTAssertEqual(currentID, "user_123")
 

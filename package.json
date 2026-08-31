@@ -22,7 +22,6 @@
     "ios:screenshots:ar": "SCREENSHOT_LANG=ar node apple/Scripts/html-render/render.js",
     "ios:screenshots:store": "node apple/Scripts/html-render/render-store.js",
     "ios:screenshots:store:ar": "CAPTION_LANG=ar node apple/Scripts/html-render/render-store.js",
-    "firebase:register": "bash scripts/native/firebase-register-apps.sh",
     "sync:content": "bash scripts/sync-content.sh"
   }
 }

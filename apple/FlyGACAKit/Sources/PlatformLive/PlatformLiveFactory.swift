@@ -5,14 +5,21 @@ import Foundation
 /// Factory helper providing live PlatformLive instances for injection at the app root.
 public enum PlatformLiveFactory {
     public static func makeAuth(userID: String? = nil) -> any AuthProviding {
-        FirebaseAuthService(userID: userID)
+        LiveAuthService(userID: userID)
     }
 
     public static func makeProgressSync(
-        projectID: String = "flygaca-app",
+        endpointURL: URL = URL(string: "https://flygaca.com/api/progress/summary")!,
         authProvider: any AuthProviding
     ) -> any ProgressSyncing {
-        FirebaseProgressSync(projectID: projectID, authProvider: authProvider)
+        LiveProgressSync(endpointURL: endpointURL, authProvider: authProvider)
+    }
+
+    public static func makeProgressSync(
+        projectID: String,
+        authProvider: any AuthProviding
+    ) -> any ProgressSyncing {
+        LiveProgressSync(projectID: projectID, authProvider: authProvider)
     }
 
     public static func makeChatClient(
