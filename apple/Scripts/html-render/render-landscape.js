@@ -6,6 +6,7 @@ const { buildScreens } = require('./screens');
 const OUT = process.env.SCREENSHOT_OUT
   || path.resolve(__dirname, '../../../screenshots/raw');
 const CHROME = process.env.CHROME_PATH || undefined;
+const LANG = process.env.SCREENSHOT_LANG || 'en';
 
 const APPS = [
   { dir: 'ELPT', name: 'Fly GACA ELPT' },
@@ -22,9 +23,10 @@ const LANDSCAPE_SCREENS = ['03-quiz-question', '04-quiz-answered', '08-timed-exa
 (async () => {
   const browser = await chromium.launch(CHROME ? { executablePath: CHROME } : {});
   for (const app of APPS) {
-    const screens = buildScreens(app);
+    const screens = buildScreens(app, LANG);
     for (const [slot, spec] of Object.entries(SLOTS)) {
-      const dir = path.join(OUT, app.dir, `${slot}-landscape`);
+      const langSuffix = LANG === 'ar' ? '-ar' : '';
+      const dir = path.join(OUT, app.dir, `${slot}-landscape${langSuffix}`);
       fs.mkdirSync(dir, { recursive: true });
       const ctx = await browser.newContext({
         viewport: { width: spec.width, height: spec.height },
@@ -36,7 +38,7 @@ const LANDSCAPE_SCREENS = ['03-quiz-question', '04-quiz-answered', '08-timed-exa
         await pg.setContent(screens[name](), { waitUntil: 'networkidle' });
         const file = path.join(dir, `${name}-landscape.png`);
         await pg.screenshot({ path: file });
-        console.log(`  ✓ ${app.dir}/${slot}-landscape/${name}-landscape.png`);
+        console.log(`  ✓ ${app.dir}/${slot}-landscape${langSuffix}/${name}-landscape.png`);
       }
       await ctx.close();
     }

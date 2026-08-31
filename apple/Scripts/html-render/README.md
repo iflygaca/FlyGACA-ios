@@ -30,14 +30,20 @@ npm i -D playwright-core        # or: npm i (uses the repo's @playwright/test)
 # Optional: point at a specific browser binary
 export CHROME_PATH=/path/to/chromium   # e.g. $(npx playwright install chromium && ...)
 
+# English (default)
 node apple/Scripts/html-render/render.js            # portrait set
 node apple/Scripts/html-render/render-landscape.js  # landscape set
+
+# Arabic — renders RTL with Arabic UI chrome
+SCREENSHOT_LANG=ar node apple/Scripts/html-render/render.js            # portrait set
+SCREENSHOT_LANG=ar node apple/Scripts/html-render/render-landscape.js  # landscape set
 ```
 
 Environment overrides:
 
 - `CHROME_PATH` — Chromium/Chrome executable. Unset → playwright-core's bundled build.
 - `SCREENSHOT_OUT` — output dir (default `screenshots/raw`).
+- `SCREENSHOT_LANG` — UI language ('en' | 'ar', default 'en'). Arabic renders RTL. Bundled content (questions, bank titles) stays English in every locale.
 
 ## Files
 
