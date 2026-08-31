@@ -1,0 +1,71 @@
+{
+  "version": "1.0.0",
+  "modules": [
+    {
+      "id": "ppl-exam",
+      "folder": "ppl-exam",
+      "name_en": "Private Pilot License",
+      "name_ar": "رخصة طيار خاص (PPL)",
+      "badge": "PPL",
+      "category": "licensing",
+      "icon": "airplane",
+      "summary_en": "Complete ground school syllabus, 13 question banks, Air Law, Navigation, Meteorology & Flight Principles for GACA PPL written exam.",
+      "summary_ar": "المنهج الدراسي المتكامل، 13 بنك أسئلة، أنظمة الطيران والملاحة والأرصاد الجوية ومبادئ الطيران لاختبار جاكا النظري."
+    },
+    {
+      "id": "cpl",
+      "folder": "cpl",
+      "name_en": "Commercial Pilot License",
+      "name_ar": "رخصة طيار تجاري (CPL)",
+      "badge": "CPL",
+      "category": "licensing",
+      "icon": "briefcase.fill",
+      "summary_en": "Advanced commercial flight operations, complex systems, multi-engine aerodynamics, GACAR Part 135/121 & high performance flight.",
+      "summary_ar": "عمليات الطيران التجاري المتقدمة، الأنظمة المعقدة، ديناميكا الطائرات متعددة المحركات، وأنظمة GACAR الجزء 135/121."
+    },
+    {
+      "id": "ir",
+      "folder": "ir",
+      "name_en": "Instrument Rating",
+      "name_ar": "أهلية الطيران الآلي (IR)",
+      "badge": "IR",
+      "category": "licensing",
+      "icon": "gauge.with.needle.fill",
+      "summary_en": "IFR procedures, approach plates, holding patterns, departure clearances, spatial disorientation & adverse weather.",
+      "summary_ar": "إجراءات الطيران الآلي، مخططات الاقتراب، أنماط الانتظار، تصاريح المغادرة، والتغلب على الخداع الحسي والطقس الرديء."
+    },
+    {
+      "id": "atpl",
+      "folder": "atpl",
+      "name_en": "Airline Transport Pilot",
+      "name_ar": "رخصة طيار خط جوي (ATPL)",
+      "badge": "ATPL",
+      "category": "licensing",
+      "icon": "airplane.departure",
+      "summary_en": "Jet transport operations, high-altitude aerodynamics, flight planning, crew resource management (CRM) & GACAR Part 121 compliance.",
+      "summary_ar": "عمليات النقل الجوي النفاث، ديناميكا الارتفاعات العالية، تخطيط الرحلات، إدارة طاقم الطائرة ولوائح GACAR الجزء 121."
+    },
+    {
+      "id": "elp",
+      "folder": "elp",
+      "name_en": "English Language Proficiency",
+      "name_ar": "كفاءة اللغة الإنجليزية (ELPT)",
+      "badge": "ELPT",
+      "category": "ratings",
+      "icon": "antenna.radiowaves.left.and.right",
+      "summary_en": "ICAO Level 4+ preparation, standard radiotelephony phraseology, emergency scenario simulator & audio comprehension drills.",
+      "summary_ar": "التحضير للمستوى الرابع وما فوق في منظمة الإيكاو، المصطلحات اللاسلكية القياسية، محاكي سيناريوهات الطوارئ وتمارين الاستماع."
+    },
+    {
+      "id": "aip",
+      "folder": "aip",
+      "name_en": "Saudi AIP Publication",
+      "name_ar": "دليل معلومات الطيران السعودي (AIP)",
+      "badge": "AIP",
+      "category": "ratings",
+      "icon": "book.closed.fill",
+      "summary_en": "Saudi Arabian airspace classification, NOTAM decoding, aerodrome charts, designated routes & ATS airspace.",
+      "summary_ar": "تصنيف المجال الجوي للمملكة العربية السعودية، فك تشفير النوتام، مخططات المطارات، المسارات المحددة والخدمات الجوية."
+    }
+  ]
+}

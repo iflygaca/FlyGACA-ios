@@ -91,6 +91,54 @@ public enum ContentLoader {
         return nil
     }
 
+    /// Load the multi-module catalog descriptor (catalog.json) from the content root.
+    public static func loadCatalog(from directory: URL) -> [CatalogItem] {
+        let url = directory.appendingPathComponent("catalog.json")
+        guard let data = try? Data(contentsOf: url),
+              let file = try? JSONDecoder().decode(CatalogFile.self, from: data) else {
+            return []
+        }
+        return file.modules
+    }
+
+    /// Load all available modules from the Content directory (either from subdirectories under modules/ or root).
+    public static func loadAllModules(from directory: URL) -> [String: ModuleContent] {
+        var result: [String: ModuleContent] = [:]
+        let modulesDir = directory.appendingPathComponent("modules")
+        let targetDir = FileManager.default.fileExists(atPath: modulesDir.path) ? modulesDir : directory
+
+        if let contents = try? FileManager.default.contentsOfDirectory(at: targetDir, includingPropertiesForKeys: [.isDirectoryKey], options: .skipsHiddenFiles) {
+            for item in contents {
+                if (try? item.resourceValues(forKeys: [.isDirectoryKey]))?.isDirectory == true {
+                    if let loaded = try? load(from: item) {
+                        result[loaded.manifest.id] = loaded
+                    }
+                }
+            }
+        }
+
+        // Fallback: If no subdirectories or root is itself a module
+        if result.isEmpty, let single = try? load(from: directory) {
+            result[single.manifest.id] = single
+        }
+
+        return result
+    }
+
+    /// Load the bundled airports index (airports.json).
+    public static func loadAirports(from directory: URL) -> [Airport] {
+        let url = directory.appendingPathComponent("airports.json")
+        guard let data = try? Data(contentsOf: url) else { return [] }
+        return (try? JSONDecoder().decode([Airport].self, from: data)) ?? []
+    }
+
+    /// Load the GACAR regulations index (regulations.json).
+    public static func loadRegulations(from directory: URL) -> GACARIndex? {
+        let url = directory.appendingPathComponent("regulations.json")
+        guard let data = try? Data(contentsOf: url) else { return nil }
+        return try? JSONDecoder().decode(GACARIndex.self, from: data)
+    }
+
     private static func data(_ name: String, in directory: URL) throws -> Data {
         let url = directory.appendingPathComponent(name)
         guard let data = try? Data(contentsOf: url) else {
@@ -99,3 +147,4 @@ public enum ContentLoader {
         return data
     }
 }
+

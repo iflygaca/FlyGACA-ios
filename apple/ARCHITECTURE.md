@@ -1,35 +1,26 @@
-# Fly GACA iOS App Family — Architecture
+# Fly GACA iOS App Family & Flagship Architecture
 
-The native SwiftUI products: **one shared codebase, one App Store app per module**
-(ELPT and AIP today; FOI, AGI and more as their content lands), sold
-together via an App Store **app bundle**. Every app carries the identical core feature
-set — Study mode, Quizzing, Flashcards (spaced repetition), Mock/Practice tests,
-and timed scored Exam Prep with analytics — and none of it is per-app code.
+The native SwiftUI products: **one unified flagship app (`FlyGACA`) containing all features**, plus optional standalone module targets (ELPT and AIP).
 
-This document is the blueprint; `README.md` (next to it) is the 10-minute Mac
-setup. Everything here is grounded in the web app this repo already ships: the
-apps **reuse** its corpus, module catalog and progress semantics — they never
-fork them.
+Every app carries the identical high-precision flight deck suite:
+- **Academics**: Study mode, Quizzing by topic, Flashcards (Spaced Repetition with Leitner 5-box algorithm), timed scored Exam Prep with analytics, Ground School lessons, and ICAO Scenario check-ride simulators.
+- **Flight Deck Tools**: Offline calculators (Crosswind vector visualizer, Pressure & Density Altitude, Weight & Balance CG envelope, Fuel & Range planner, Time/Speed/Distance wind triangle, Unit Converter) and Saudi METAR / TAF weather decoder.
+- **Captain Adel AI**: Streaming AI flight instructor with GACAR citations and audio speech playback.
+- **GACAR Regulations Library**: Offline searchable regulatory library covering all GACAR parts.
 
 ---
 
 ## 1. Architecture & tech stack
 
-**Stack:** Swift 5.9+, SwiftUI, SwiftData, iOS 17+. MVVM with a light Clean
-layering, delivered as **one local Swift package with multiple library targets**
-(`FlyGACAKit`) — strict dependency direction without multi-package overhead.
+**Stack:** Swift 5.9+, SwiftUI, SwiftData, iOS 17+. Delivered as **one local Swift package with modular library targets** (`FlyGACAKit`) — strict dependency direction without multi-package overhead.
 
-**Storage decision:** SwiftData for user state; content stays read-only JSON
-decoded into structs. The full 13-bank corpus is ~158 KB — a database for
-content would be pure overhead. Realm is ruled out (MongoDB deprecated the
-Realm SDKs); CoreData is the fallback only if the deployment floor ever has to
-drop below iOS 17.
+**Storage decision:** SwiftData for user study state; aviation content stays read-only bundled JSON decoded into immutable structs.
 
 ### Target graph
 
 ```
                  ┌──────────────┐
-                 │  CoreModels  │  value types + wire decoding (no deps)
+                 │  CoreModels  │  value types, aviation calculators, wire decoding
                  └──────┬───────┘
         ┌───────────────┼────────────────┐
  ┌──────┴─────┐  ┌──────┴─────┐  ┌───────┴──────┐
@@ -40,10 +31,11 @@ drop below iOS 17.
  └──────┬────────┘      │                │
         └───────────────┼────────────────┘
                  ┌──────┴───────┐
-                 │  FeatureUI   │  every screen, incl. SingleModuleRootView
+                 │  FeatureUI   │  MainAppView, Tools, Academics, Adel AI, Regs
                  └──────┬───────┘
               ┌─────────┴──────────┐
-              │  app targets (N)   │  ~20-line shells + PlatformLive (Phase 4)
+              │  FlyGACA Flagship  │  5-tab Unified Native Flight Bag (Primary)
+              │  ELPT / AIP Targets│  Standalone Module Targets (Secondary)
               └────────────────────┘
 ```
 

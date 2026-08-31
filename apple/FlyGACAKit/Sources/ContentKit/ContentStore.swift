@@ -38,4 +38,21 @@ public struct ContentStore: Sendable {
         }
         return content
     }
+
+    public func loadAllModules() -> [String: ModuleContent] {
+        ContentLoader.loadAllModules(from: bundledDirectory)
+    }
+
+    public func loadCatalog() -> [CatalogItem] {
+        ContentLoader.loadCatalog(from: bundledDirectory)
+    }
+
+    public func loadAirports() -> [Airport] {
+        ContentLoader.loadAirports(from: bundledDirectory)
+    }
+
+    public func loadRegulations() -> GACARIndex? {
+        ContentLoader.loadRegulations(from: bundledDirectory)
+    }
 }
+

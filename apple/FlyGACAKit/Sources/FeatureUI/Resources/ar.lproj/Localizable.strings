@@ -67,3 +67,87 @@
    (src/i18n/ar.json في المستودع الموحّد FlyGACA-app). لا تُعِد صياغته. */
 "disclaimer.strong" = "فلاي جاكا منصة تعليمية مستقلة.";
 "disclaimer.body" = "وهي غير تابعة للهيئة العامة للطيران المدني (GACA) ولا معتمدة منها ولا تُديرها، كما أنها لا تمثّل حكومة المملكة العربية السعودية. المصدر الرسمي والمعتمد لجميع لوائح الطيران المدني ومنشوراته ومعلوماته الجوية هو GACA دائمًا. تحقّق دائمًا من أحدث منشور رسمي صادر عن GACA على gaca.gov.sa.";
+
+/* تبويبات التنقل */
+"tab.home" = "الرئيسية";
+"tab.academics" = "الأكاديميا";
+"tab.flightDeck" = "حقيبة الطيران";
+"tab.captainAdel" = "كابتن عادل";
+"tab.regulations" = "الأنظمة واللوائح";
+
+/* لوحة القيادة الرئيسية */
+"dash.captainDeck" = "حقيبة القائد";
+"dash.flightBag" = "حقيبة الطيران المدني السعودي";
+"dash.dayStreak" = "أيام متتالية";
+"dash.featuredRating" = "الحقيبة المميزة";
+"dash.continueDeck" = "متابعة المذاكرة";
+"dash.examReadiness" = "الجاهزية للاختبار";
+"dash.allModules" = "جميع المواد (%lld)";
+"dash.corpus" = "بنك الأسئلة";
+"dash.attempts" = "محاولات الاختبار";
+"dash.passed" = "%lld ناجح";
+"dash.flightDeckTools" = "حاسبات حقيبة الطيران";
+"dash.openHub" = "فتح الحاسبات";
+"dash.adelTitle" = "كابتن عادل الذكي";
+"dash.adelSubtitle" = "مدرّب الطيران المبني على أنظمة GACA";
+"dash.askAdel" = "اسأل كابتن عادل";
+"dash.adelDesc" = "اسأل عن أنظمة GACAR 61/91، سرعات الانتظار، حدود الطيران البصري VFR، أو سيناريوهات ELPT.";
+
+/* حاسبات حقيبة الطيران */
+"tool.hub.title" = "حاسبات الطيران المدني السعودي";
+"tool.hub.sub" = "حاسبات دقيقة وتشفير أرصاد جوية مخصصة للعمليات وفق لوائح GACAR وتعمل دون إنترنت.";
+"tool.crosswind.title" = "الرياح المتقاطعة ومحاكي المدرج";
+"tool.crosswind.sub" = "مركبات الرياح الرأسية والجانبية مع بوصلة متجهات تفاعلية";
+"tool.density.title" = "الارتفاع الضغطي والكثافي";
+"tool.density.sub" = "حساب ارتفاع الضغط والكثافة وانحراف درجة الحرارة عن معيار ISA";
+"tool.wb.title" = "الوزن والتوازن ومركز الثقل";
+"tool.wb.sub" = "توزيع المحطات، العزوم، والتحقق من حدود مركز الثقل CG";
+"tool.fuel.title" = "مخطط الوقود والمدى";
+"tool.fuel.sub" = "معدل الاستهلاك، مدة الطيران، والامتثال لاحتياطي GACAR Part 91";
+"tool.tsd.title" = "الزمن والسرعة والمسافة (TSD)";
+"tool.tsd.sub" = "زاوية تصحيح الرياح، السرعة الأرضية، وزمن الوصول التقديري ETE";
+"tool.unit.title" = "محول الوحدات الجوية";
+"tool.unit.sub" = "تحويل السرعات، المسافات، الارتفاعات، أوزان الوقود والضغط";
+"tool.weather.title" = "أرصاد المطارات السعودية METAR / TAF";
+"tool.weather.sub" = "حالة الطيران (VFR/IFR)، الرياح وقواعد السحب للمطارات السعودية";
+
+/* كابتن عادل الذكي */
+"adel.title" = "كابتن عادل الذكي";
+"adel.welcome" = "مرحبًا يا كابتن! أنا كابتن عادل، مدربك الذكي المعتمد على لوائح GACAR ودليل الطيران السعودي AIP. كيف يمكنني مساعدتك في تدريبك أو استعدادك للاختبار اليوم؟";
+"adel.inputPlaceholder" = "اسأل كابتن عادل عن أنظمة GACAR أو AIP...";
+"adel.listen" = "استماع";
+"adel.clearPrompt" = "تم مسح المحادثة. جاهز لسؤالك القادم!";
+
+/* اللوائح والأنظمة */
+"reg.title" = "مكتبة لوائح GACAR";
+"reg.search" = "ابحث برقم الجزء، مثل 61، 91، 121...";
+"reg.allParts" = "جميع الأجزاء (%lld)";
+"reg.subparts" = "مخطط الأقسام الفرعية";
+"reg.pages" = "%lld صفحة";
+"reg.authoritative" = "المصدر الرسمي المعتمد";
+"reg.authoritativeDesc" = "جميع اللوائح والأنظمة صادرة رسميًا عن الهيئة العامة للطيران المدني في المملكة العربية السعودية.";
+"reg.openPortal" = "فتح البوابة الرسمية (gaca.gov.sa)";
+
+/* الأكاديميا */
+"acad.title" = "الأكاديميا";
+"acad.search" = "ابحث في PPL, CPL, IR, ATPL, ELPT...";
+"acad.filter.all" = "جميع المواد";
+"acad.filter.licensing" = "رخص الطيران";
+"acad.filter.ratings" = "الأهليات والمنشورات";
+"acad.banks" = "%lld بنك أسئلة";
+"acad.questions" = "%lld سؤال";
+"acad.lessons" = "%lld درس";
+
+/* الإعدادات */
+"settings.title" = "الإعدادات";
+"settings.general" = "عام";
+"settings.language" = "اللغة";
+"settings.haptics" = "الاهتزاز التفاعلي";
+"settings.sound" = "المؤثرات الصوتية";
+"settings.about" = "حول التطبيق";
+"settings.version" = "الإصدار";
+"settings.appID" = "معرف التطبيق";
+"settings.resetProgress" = "إعادة تعيين التقدم الدراسي";
+"settings.resetWarning" = "سيؤدي هذا إلى مسح الأيام المتتالية وسجل الاختبارات وصناديق البطاقات على هذا الجهاز.";
+"settings.resetConfirm" = "إعادة تعيين كل التقدم";
+"settings.cancel" = "إلغاء";

@@ -60,49 +60,47 @@ The law stays free to read on [flygaca.com](https://flygaca.com). What you buy i
 
 ---
 
-## 📱 App Target Lineup
+## 📱 App Lineup & Flagship Architecture
 
 | App | Bundle ID | Module ID | What's Inside |
 |-----|-----------|-----------|---------------|
-| **ELPT** | `com.flygaca.elpt` | `elp` | 5 question banks · 191 questions + scenario bank · ICAO Level 4 prep |
-| **AIP** | `com.flygaca.aip` | `aip` | 3 question banks · 113 questions · Aeronautical Information Publication study |
-
-> **Note:** Four licence-exam targets (**PPL**, **CPL**, **IR**, **ATPL**) are **paused** pending strategic review. Their code, targets, and question data remain preserved in git history; their web study packs are untouched and still selling at [flygaca.com/study/packs](https://flygaca.com/study/packs). Restoring one is a revert of its removal commit plus Apple-portal steps. See [`ROADMAP.md`](ROADMAP.md) for details.
+| **Fly GACA (Unified Flagship)** | `com.flygaca.app` | `all` | **All Features in One App**: Full study suites for PPL, CPL, IR, ATPL, ELPT & AIP · 2,000+ questions · Ground school · Crosswind & Density Altitude calculators · Weight & Balance · Fuel Planner · TSD · Unit Converter · Saudi METAR/TAF weather · Captain Adel AI Flight Instructor · GACAR offline library |
+| **ELPT (Standalone)** | `com.flygaca.elpt` | `elp` | 5 question banks · 191 questions + scenario bank · ICAO Level 4 prep |
+| **AIP (Standalone)** | `com.flygaca.aip` | `aip` | 3 question banks · 113 questions · Aeronautical Information Publication study |
 
 ---
 
 ## 🏗 Architecture at a Glance
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│  CoreModels  │  StudyEngines  │  ContentKit  │  AppServices │
-│   (no deps)  │   (SRS, exams) │  (bundled    │  (protocols  │
-│              │                │   JSON)      │   + mocks)   │
-└──────┬───────┴───────┬────────┴──────┬───────┴──────┬───────┘
-       │               │               │              │
-       └───────────────┼───────────────┼──────────────┘
-                       │               │
-              ┌────────┴───────────────┴────────┐
-              │        PersistenceKit             │
-              │    (SwiftData + App Group)        │
-              └───────────────┬───────────────────┘
-                              │
-              ┌───────────────┴───────────────┐
-              │          FeatureUI              │
-              │   (every screen, every view)    │
-              └───────────────┬───────────────┘
-                              │
-              ┌───────────────┴───────────────┐
-              │     PlatformLive (Phase 4)    │
-              │  (Firebase, RevenueCat, Chat) │
-              └───────────────────────────────┘
-                              │
-              ┌───────────────┼───────────────┐
-              ▼               ▼               ▼
-           ELPT            AIP           [Future]
+┌─────────────────────────────────────────────────────────────────────────┐
+│     CoreModels    │   StudyEngines   │   ContentKit   │   AppServices   │
+│     (value types) │   (SRS, exams)   │   (all JSON)   │  (seams/mocks)  │
+└──────────┬────────┴─────────┬────────┴────────┬───────┴────────┬────────┘
+           │                  │                 │                │
+           └──────────────────┼─────────────────┼────────────────┘
+                              │                 │
+                     ┌────────┴─────────────────┴────────┐
+                     │          PersistenceKit           │
+                     │      (SwiftData + App Group)      │
+                     └────────────────┬──────────────────┘
+                                      │
+                     ┌────────────────┴──────────────────┐
+                     │             FeatureUI             │
+                     │  (MainAppView, Tools, AI, Exams)  │
+                     └────────────────┬──────────────────┘
+                                      │
+                     ┌────────────────┴──────────────────┐
+                     │           PlatformLive            │
+                     │   (Firebase, Captain Adel SSE)    │
+                     └────────────────┬──────────────────┘
+                                      │
+                     ┌────────────────┴──────────────────┐
+                     ▼                                   ▼
+          Fly GACA (Flagship App)              Standalone (ELPT / AIP)
 ```
 
-**One shared Swift package (`FlyGACAKit`), one ~20-line app target per module.** A module is **data, not code** — adding a new app means adding a `Content/` folder and a small `.xcconfig`, never new Swift. See [`apple/ARCHITECTURE.md`](apple/ARCHITECTURE.md) for the full blueprint.
+**One shared Swift package (`FlyGACAKit`), unified 5-tab native flight deck (`MainAppView`).** Every feature runs offline-first, local-first, and with full Arabic RTL and English bilingual parity. See [`apple/ARCHITECTURE.md`](apple/ARCHITECTURE.md) for the full blueprint.
 
 ### Key Design Rules
 

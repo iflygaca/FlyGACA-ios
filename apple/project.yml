@@ -65,8 +65,11 @@ targetTemplates:
       gatherCoverageData: false
 
 targets:
-  # The licence-exam modules (PPL, CPL, IR, ATPL) are paused — see ROADMAP.md.
-  # Restoring one is a revert: its Apps/<APP>/ folder plus a two-line entry here.
+  # The unified flagship app with all features (PPL, CPL, IR, ATPL, ELPT, AIP, Flight Deck Tools, Captain Adel AI, Regulations)
+  FlyGACA:
+    templates: [FlyGACAApp]
+
+  # Standalone modules for individual store listings / TestFlight
   ELPT:
     templates: [FlyGACAApp]
   AIP:
@@ -78,5 +81,5 @@ targets:
     sources:
       - AppleTests
     dependencies:
-      - target: ELPT
+      - target: FlyGACA
 

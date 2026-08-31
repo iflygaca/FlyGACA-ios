@@ -1,0 +1,7 @@
+#include "../Shared/App-Shared.xcconfig"
+
+// Fly GACA — The Unified Native iOS Flight Deck for Saudi Civil Aviation
+FG_MODULE_ID = all
+PRODUCT_NAME = FlyGACA
+PRODUCT_BUNDLE_IDENTIFIER = com.flygaca.app
+INFOPLIST_KEY_CFBundleDisplayName = Fly GACA
