@@ -56,183 +56,196 @@ public struct FuelPlannerView: View {
         usableFuel >= totalRequiredFuel
     }
 
+    private var eteFormatted: String {
+        let hrs = Int(flightTimeHours)
+        let mins = Int((flightTimeHours - Double(hrs)) * 60)
+        return "\(hrs)h \(mins)m"
+    }
+
+    private var enduranceFormatted: String {
+        let endHrs = Int(totalEnduranceHours)
+        let endMins = Int((totalEnduranceHours - Double(endHrs)) * 60)
+        return "\(endHrs)h \(endMins)m"
+    }
+
+    private var inputCard: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            Text("Flight Parameters")
+                .font(.headline)
+                .foregroundStyle(FGTheme.gold)
+
+            HStack(spacing: 12) {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Distance (NM)")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                    TextField("180", text: $distanceStr)
+                        .numericKeyboard()
+                        .padding(10)
+                        .background(FGTheme.mist)
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                        .foregroundStyle(.white)
+                }
+
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Est. Groundspeed (kts)")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                    TextField("110", text: $groundSpeedStr)
+                        .numericKeyboard()
+                        .padding(10)
+                        .background(FGTheme.mist)
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                        .foregroundStyle(.white)
+                }
+            }
+
+            HStack(spacing: 12) {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Fuel Burn (GPH)")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                    TextField("9.5", text: $burnRateStr)
+                        .decimalKeyboard()
+                        .padding(10)
+                        .background(FGTheme.mist)
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                        .foregroundStyle(.white)
+                }
+
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Usable Fuel (Gal)")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                    TextField("48", text: $usableFuelStr)
+                        .decimalKeyboard()
+                        .padding(10)
+                        .background(FGTheme.mist)
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                        .foregroundStyle(.white)
+                }
+            }
+
+            VStack(alignment: .leading, spacing: 6) {
+                Text("GACAR Reserve Rule")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                Picker("Reserve Rule", selection: $reserveMode) {
+                    Text("VFR Day (30m)").tag(0)
+                    Text("VFR Night (45m)").tag(1)
+                    Text("IFR (+Alt)").tag(2)
+                }
+                .pickerStyle(.segmented)
+            }
+        }
+        .padding()
+        .background(FGTheme.deep)
+        .clipShape(RoundedRectangle(cornerRadius: 16))
+    }
+
+    private var resultsCard: some View {
+        VStack(spacing: 16) {
+            Text("Fuel & Range Breakdown")
+                .font(.headline)
+                .foregroundStyle(.white)
+                .frame(maxWidth: .infinity, alignment: .leading)
+
+            // Hero Fuel Card
+            VStack(spacing: 6) {
+                Text("TOTAL FUEL REQUIRED")
+                    .font(.caption.bold())
+                    .foregroundStyle(FGTheme.gold)
+                Text(String(format: "%.1f Gal", totalRequiredFuel))
+                    .font(.system(size: 36, weight: .bold, design: .rounded))
+                    .foregroundStyle(isFuelSufficient ? FGTheme.sage : FGTheme.clay)
+                Text(String(format: "Trip: %.1f Gal · Reserve: %.1f Gal · Taxi: %.1f Gal", tripFuel, reserveFuel, taxiFuel))
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
+            .frame(maxWidth: .infinity)
+            .padding()
+            .background(FGTheme.mist)
+            .clipShape(RoundedRectangle(cornerRadius: 14))
+
+            HStack(spacing: 12) {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Flight ETE")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                    Text(eteFormatted)
+                        .font(.title3.bold())
+                        .foregroundStyle(.white)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding()
+                .background(FGTheme.mist)
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Max Safe Range")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                    Text(String(format: "%.0f NM", maxSafeRangeNM))
+                        .font(.title3.bold())
+                        .foregroundStyle(FGTheme.teal)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding()
+                .background(FGTheme.mist)
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+            }
+
+            HStack(spacing: 12) {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Fuel on Landing")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                    Text(String(format: "%.1f Gal", remainingFuel))
+                        .font(.title3.bold())
+                        .foregroundStyle(remainingFuel >= reserveFuel ? FGTheme.sage : FGTheme.clay)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding()
+                .background(FGTheme.mist)
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Total Endurance")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                    Text(enduranceFormatted)
+                        .font(.title3.bold())
+                        .foregroundStyle(.white)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding()
+                .background(FGTheme.mist)
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+            }
+
+            if !isFuelSufficient {
+                HStack(alignment: .top, spacing: 10) {
+                    Image(systemName: "exclamationmark.triangle.fill")
+                        .foregroundStyle(FGTheme.clay)
+                    Text("Insufficient Fuel: You need \(String(format: "%.1f", totalRequiredFuel - usableFuel)) more gallons to meet GACAR Part 91 minimum reserves!")
+                        .font(.footnote)
+                        .foregroundStyle(FGTheme.clay)
+                }
+                .padding()
+                .background(FGTheme.clay.opacity(0.15))
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+            }
+        }
+        .padding()
+        .background(FGTheme.deep)
+        .clipShape(RoundedRectangle(cornerRadius: 16))
+    }
+
     public var body: some View {
         ScrollView {
             VStack(spacing: 20) {
-                // Inputs Card
-                VStack(alignment: .leading, spacing: 16) {
-                    Text("Flight Parameters")
-                        .font(.headline)
-                        .foregroundStyle(FGTheme.gold)
-
-                    HStack(spacing: 12) {
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text("Distance (NM)")
-                                .font(.caption)
-                                .foregroundStyle(.secondary)
-                            TextField("180", text: $distanceStr)
-                                .numericKeyboard()
-                                .padding(10)
-                                .background(FGTheme.mist)
-                                .clipShape(RoundedRectangle(cornerRadius: 8))
-                                .foregroundStyle(.white)
-                        }
-
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text("Est. Groundspeed (kts)")
-                                .font(.caption)
-                                .foregroundStyle(.secondary)
-                            TextField("110", text: $groundSpeedStr)
-                                .numericKeyboard()
-                                .padding(10)
-                                .background(FGTheme.mist)
-                                .clipShape(RoundedRectangle(cornerRadius: 8))
-                                .foregroundStyle(.white)
-                        }
-                    }
-
-                    HStack(spacing: 12) {
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text("Fuel Burn (GPH)")
-                                .font(.caption)
-                                .foregroundStyle(.secondary)
-                            TextField("9.5", text: $burnRateStr)
-                                .decimalKeyboard()
-                                .padding(10)
-                                .background(FGTheme.mist)
-                                .clipShape(RoundedRectangle(cornerRadius: 8))
-                                .foregroundStyle(.white)
-                        }
-
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text("Usable Fuel (Gal)")
-                                .font(.caption)
-                                .foregroundStyle(.secondary)
-                            TextField("48", text: $usableFuelStr)
-                                .decimalKeyboard()
-                                .padding(10)
-                                .background(FGTheme.mist)
-                                .clipShape(RoundedRectangle(cornerRadius: 8))
-                                .foregroundStyle(.white)
-                        }
-                    }
-
-                    VStack(alignment: .leading, spacing: 6) {
-                        Text("GACAR Reserve Rule")
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
-                        Picker("Reserve Rule", selection: $reserveMode) {
-                            Text("VFR Day (30m)").tag(0)
-                            Text("VFR Night (45m)").tag(1)
-                            Text("IFR (+Alt)").tag(2)
-                        }
-                        .pickerStyle(.segmented)
-                    }
-                }
-                .padding()
-                .background(FGTheme.deep)
-                .clipShape(RoundedRectangle(cornerRadius: 16))
-
-                // Calculated Results
-                VStack(spacing: 16) {
-                    Text("Fuel & Range Breakdown")
-                        .font(.headline)
-                        .foregroundStyle(.white)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-
-                    // Hero Fuel Card
-                    VStack(spacing: 6) {
-                        Text("TOTAL FUEL REQUIRED")
-                            .font(.caption.bold())
-                            .foregroundStyle(FGTheme.gold)
-                        Text(String(format: "%.1f Gal", totalRequiredFuel))
-                            .font(.system(size: 36, weight: .bold, design: .rounded))
-                            .foregroundStyle(isFuelSufficient ? FGTheme.sage : FGTheme.clay)
-                        Text(String(format: "Trip: %.1f Gal · Reserve: %.1f Gal · Taxi: %.1f Gal", tripFuel, reserveFuel, taxiFuel))
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
-                    }
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(FGTheme.mist)
-                    .clipShape(RoundedRectangle(cornerRadius: 14))
-
-                    HStack(spacing: 12) {
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text("Flight ETE")
-                                .font(.caption)
-                                .foregroundStyle(.secondary)
-                            let hrs = Int(flightTimeHours)
-                            let mins = Int((flightTimeHours - Double(hrs)) * 60)
-                            Text("\(hrs)h \(mins)m")
-                                .font(.title3.bold())
-                                .foregroundStyle(.white)
-                        }
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding()
-                        .background(FGTheme.mist)
-                        .clipShape(RoundedRectangle(cornerRadius: 12))
-
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text("Max Safe Range")
-                                .font(.caption)
-                                .foregroundStyle(.secondary)
-                            Text(String(format: "%.0f NM", maxSafeRangeNM))
-                                .font(.title3.bold())
-                                .foregroundStyle(FGTheme.teal)
-                        }
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding()
-                        .background(FGTheme.mist)
-                        .clipShape(RoundedRectangle(cornerRadius: 12))
-                    }
-
-                    HStack(spacing: 12) {
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text("Fuel on Landing")
-                                .font(.caption)
-                                .foregroundStyle(.secondary)
-                            Text(String(format: "%.1f Gal", remainingFuel))
-                                .font(.title3.bold())
-                                .foregroundStyle(remainingFuel >= reserveFuel ? FGTheme.sage : FGTheme.clay)
-                        }
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding()
-                        .background(FGTheme.mist)
-                        .clipShape(RoundedRectangle(cornerRadius: 12))
-
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text("Total Endurance")
-                                .font(.caption)
-                                .foregroundStyle(.secondary)
-                            let endHrs = Int(totalEnduranceHours)
-                            let endMins = Int((totalEnduranceHours - Double(endHrs)) * 60)
-                            Text("\(endHrs)h \(endMins)m")
-                                .font(.title3.bold())
-                                .foregroundStyle(.white)
-                        }
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding()
-                        .background(FGTheme.mist)
-                        .clipShape(RoundedRectangle(cornerRadius: 12))
-                    }
-
-                    if !isFuelSufficient {
-                        HStack(alignment: .top, spacing: 10) {
-                            Image(systemName: "exclamationmark.triangle.fill")
-                                .foregroundStyle(FGTheme.clay)
-                            Text("Insufficient Fuel: You need \(String(format: "%.1f", totalRequiredFuel - usableFuel)) more gallons to meet GACAR Part 91 minimum reserves!")
-                                .font(.footnote)
-                                .foregroundStyle(FGTheme.clay)
-                        }
-                        .padding()
-                        .background(FGTheme.clay.opacity(0.15))
-                        .clipShape(RoundedRectangle(cornerRadius: 12))
-                    }
-                }
-                .padding()
-                .background(FGTheme.deep)
-                .clipShape(RoundedRectangle(cornerRadius: 16))
+                inputCard
+                resultsCard
             }
             .padding()
         }

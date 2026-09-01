@@ -51,143 +51,152 @@ public struct TimeSpeedDistanceView: View {
         distance / groundSpeed
     }
 
+    private var eteFormatted: String {
+        let hrs = Int(timeEnrouteHours)
+        let mins = Int((timeEnrouteHours - Double(hrs)) * 60)
+        let secs = Int(((timeEnrouteHours - Double(hrs)) * 60 - Double(mins)) * 60)
+        return "\(hrs)h \(mins)m \(secs)s"
+    }
+
+    private var inputCard: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            Text("Navigation Leg Parameters")
+                .font(.headline)
+                .foregroundStyle(FGTheme.gold)
+
+            HStack(spacing: 12) {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("True Airspeed (kts)")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                    TextField("120", text: $trueAirspeedStr)
+                        .numericKeyboard()
+                        .padding(10)
+                        .background(FGTheme.mist)
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                        .foregroundStyle(.white)
+                }
+
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Desired Course (°)")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                    TextField("090", text: $courseStr)
+                        .numericKeyboard()
+                        .padding(10)
+                        .background(FGTheme.mist)
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                        .foregroundStyle(.white)
+                }
+            }
+
+            HStack(spacing: 12) {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Leg Distance (NM)")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                    TextField("150", text: $distanceStr)
+                        .numericKeyboard()
+                        .padding(10)
+                        .background(FGTheme.mist)
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                        .foregroundStyle(.white)
+                }
+
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Wind Dir / Spd")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                    HStack(spacing: 4) {
+                        TextField("040", text: $windDirStr)
+                            .numericKeyboard()
+                            .padding(10)
+                            .background(FGTheme.mist)
+                            .clipShape(RoundedRectangle(cornerRadius: 8))
+                            .foregroundStyle(.white)
+                        Text("/")
+                            .foregroundStyle(.secondary)
+                        TextField("15", text: $windSpeedStr)
+                            .numericKeyboard()
+                            .padding(10)
+                            .background(FGTheme.mist)
+                            .clipShape(RoundedRectangle(cornerRadius: 8))
+                            .foregroundStyle(.white)
+                    }
+                }
+            }
+        }
+        .padding()
+        .background(FGTheme.deep)
+        .clipShape(RoundedRectangle(cornerRadius: 16))
+    }
+
+    private var resultsCard: some View {
+        VStack(spacing: 16) {
+            Text("Calculated Flight Vector")
+                .font(.headline)
+                .foregroundStyle(.white)
+                .frame(maxWidth: .infinity, alignment: .leading)
+
+            HStack(spacing: 12) {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("GROUNDSPEED")
+                        .font(.caption.bold())
+                        .foregroundStyle(FGTheme.gold)
+                    Text(String(format: "%.0f kts", groundSpeed))
+                        .font(.title.bold())
+                        .foregroundStyle(groundSpeed >= tas ? FGTheme.sage : FGTheme.teal)
+                    Text(String(format: "%+.0f kts vs TAS", groundSpeed - tas))
+                        .font(.caption2)
+                        .foregroundStyle(.secondary)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding()
+                .background(FGTheme.mist)
+                .clipShape(RoundedRectangle(cornerRadius: 14))
+
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("TRUE HEADING")
+                        .font(.caption.bold())
+                        .foregroundStyle(FGTheme.gold)
+                    Text(String(format: "%03.0f°", trueHeadingDeg))
+                        .font(.title.bold())
+                        .foregroundStyle(.white)
+                    Text(String(format: "WCA: %+0.1f°", windCorrectionAngleDeg))
+                        .font(.caption2)
+                        .foregroundStyle(.secondary)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding()
+                .background(FGTheme.mist)
+                .clipShape(RoundedRectangle(cornerRadius: 14))
+            }
+
+            HStack(spacing: 12) {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("ESTIMATED TIME ENROUTE (ETE)")
+                        .font(.caption.bold())
+                        .foregroundStyle(FGTheme.gold)
+                    Text(eteFormatted)
+                        .font(.title2.bold())
+                        .foregroundStyle(.white)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding()
+                .background(FGTheme.mist)
+                .clipShape(RoundedRectangle(cornerRadius: 14))
+            }
+        }
+        .padding()
+        .background(FGTheme.deep)
+        .clipShape(RoundedRectangle(cornerRadius: 16))
+    }
+
     public var body: some View {
         ScrollView {
             VStack(spacing: 20) {
-                // Inputs
-                VStack(alignment: .leading, spacing: 16) {
-                    Text("Navigation Leg Parameters")
-                        .font(.headline)
-                        .foregroundStyle(FGTheme.gold)
-
-                    HStack(spacing: 12) {
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text("True Airspeed (kts)")
-                                .font(.caption)
-                                .foregroundStyle(.secondary)
-                            TextField("120", text: $trueAirspeedStr)
-                                .numericKeyboard()
-                                .padding(10)
-                                .background(FGTheme.mist)
-                                .clipShape(RoundedRectangle(cornerRadius: 8))
-                                .foregroundStyle(.white)
-                        }
-
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text("Desired Course (°)")
-                                .font(.caption)
-                                .foregroundStyle(.secondary)
-                            TextField("090", text: $courseStr)
-                                .numericKeyboard()
-                                .padding(10)
-                                .background(FGTheme.mist)
-                                .clipShape(RoundedRectangle(cornerRadius: 8))
-                                .foregroundStyle(.white)
-                        }
-                    }
-
-                    HStack(spacing: 12) {
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text("Leg Distance (NM)")
-                                .font(.caption)
-                                .foregroundStyle(.secondary)
-                            TextField("150", text: $distanceStr)
-                                .numericKeyboard()
-                                .padding(10)
-                                .background(FGTheme.mist)
-                                .clipShape(RoundedRectangle(cornerRadius: 8))
-                                .foregroundStyle(.white)
-                        }
-
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text("Wind Dir / Spd")
-                                .font(.caption)
-                                .foregroundStyle(.secondary)
-                            HStack(spacing: 4) {
-                                TextField("040", text: $windDirStr)
-                                    .numericKeyboard()
-                                    .padding(10)
-                                    .background(FGTheme.mist)
-                                    .clipShape(RoundedRectangle(cornerRadius: 8))
-                                    .foregroundStyle(.white)
-                                Text("/")
-                                    .foregroundStyle(.secondary)
-                                TextField("15", text: $windSpeedStr)
-                                    .numericKeyboard()
-                                    .padding(10)
-                                    .background(FGTheme.mist)
-                                    .clipShape(RoundedRectangle(cornerRadius: 8))
-                                    .foregroundStyle(.white)
-                            }
-                        }
-                    }
-                }
-                .padding()
-                .background(FGTheme.deep)
-                .clipShape(RoundedRectangle(cornerRadius: 16))
-
-                // Calculated Results
-                VStack(spacing: 16) {
-                    Text("Calculated Flight Vector")
-                        .font(.headline)
-                        .foregroundStyle(.white)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-
-                    HStack(spacing: 12) {
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text("GROUNDSPEED")
-                                .font(.caption.bold())
-                                .foregroundStyle(FGTheme.gold)
-                            Text(String(format: "%.0f kts", groundSpeed))
-                                .font(.title.bold())
-                                .foregroundStyle(groundSpeed >= tas ? FGTheme.sage : FGTheme.teal)
-                            Text(String(format: "%+.0f kts vs TAS", groundSpeed - tas))
-                                .font(.caption2)
-                                .foregroundStyle(.secondary)
-                        }
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding()
-                        .background(FGTheme.mist)
-                        .clipShape(RoundedRectangle(cornerRadius: 14))
-
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text("TRUE HEADING")
-                                .font(.caption.bold())
-                                .foregroundStyle(FGTheme.gold)
-                            Text(String(format: "%03.0f°", trueHeadingDeg))
-                                .font(.title.bold())
-                                .foregroundStyle(.white)
-                            Text(String(format: "WCA: %+0.1f°", windCorrectionAngleDeg))
-                                .font(.caption2)
-                                .foregroundStyle(.secondary)
-                        }
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding()
-                        .background(FGTheme.mist)
-                        .clipShape(RoundedRectangle(cornerRadius: 14))
-                    }
-
-                    HStack(spacing: 12) {
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text("ESTIMATED TIME ENROUTE (ETE)")
-                                .font(.caption.bold())
-                                .foregroundStyle(FGTheme.gold)
-                            let hrs = Int(timeEnrouteHours)
-                            let mins = Int((timeEnrouteHours - Double(hrs)) * 60)
-                            let secs = Int(((timeEnrouteHours - Double(hrs)) * 60 - Double(mins)) * 60)
-                            Text("\(hrs)h \(mins)m \(secs)s")
-                                .font(.title2.bold())
-                                .foregroundStyle(.white)
-                        }
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding()
-                        .background(FGTheme.mist)
-                        .clipShape(RoundedRectangle(cornerRadius: 14))
-                    }
-                }
-                .padding()
-                .background(FGTheme.deep)
-                .clipShape(RoundedRectangle(cornerRadius: 16))
+                inputCard
+                resultsCard
             }
             .padding()
         }
