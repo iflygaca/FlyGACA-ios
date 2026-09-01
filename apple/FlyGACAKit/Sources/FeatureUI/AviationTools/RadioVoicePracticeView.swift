@@ -18,7 +18,7 @@ public struct RadioVoicePracticeView: View {
             freq: "118.100 MHz (Jeddah Tower)",
             atcTransmission: "Saudia 412, Jeddah Tower, radar contact passing 1,500 feet. Climb to FL 140, turn right heading 280.",
             standardReadback: "MAYDAY MAYDAY MAYDAY, Saudia 412, Engine fire number one, stopping climb at 3,000 feet, turning right heading 280, request immediate return to runway 34 Left.",
-            keyElements: ["Mayday 3x call", "Aircraft Callsign", "Nature of Emergency (Engine Fire)", "Current Altitude Intentions", "Runway Request"]
+            keyElements: ["Mayday 3x distress call", "Aircraft Callsign (Saudia 412)", "Nature of Emergency (Engine Fire)", "Altitude & Heading Intentions", "Immediate Runway Return Request"]
         ),
         (
             title: "Severe Windshear Missed Approach",
@@ -26,7 +26,7 @@ public struct RadioVoicePracticeView: View {
             freq: "124.300 MHz (Abha Tower)",
             atcTransmission: "Flynas 890, wind 180 at 22 gusting 34, runway 17 cleared to land.",
             standardReadback: "Going around, Flynas 890, severe windshear on short final, climbing straight ahead to 9,000 feet on missed approach procedure.",
-            keyElements: ["Go-around declaration", "Callsign", "Windshear report", "Climb altitude & heading"]
+            keyElements: ["Go-around declaration", "Callsign (Flynas 890)", "Windshear hazard report", "Missed approach climb altitude"]
         ),
         (
             title: "Hydraulic System Loss in Holding Pattern",
@@ -34,7 +34,7 @@ public struct RadioVoicePracticeView: View {
             freq: "120.000 MHz (Riyadh Radar)",
             atcTransmission: "Gulfstream HZ-MS2, Riyadh Control, hold southwest of SALWA on the 230 radial, maintain FL 120, expect further clearance at time 45.",
             standardReadback: "PAN PAN PAN, PAN PAN PAN, PAN PAN PAN, Riyadh Control, HZ-MS2, hydraulic system pressure loss, flight controls degraded, unable to hold, request direct vector for longest runway with emergency equipment on standby.",
-            keyElements: ["Pan-Pan 3x urgency call", "Nature of problem (Hydraulics)", "Unable to comply with hold", "Vector & equipment request"]
+            keyElements: ["Pan-Pan 3x urgency call", "Nature of problem (Hydraulics)", "Unable to comply with hold", "Radar vector & emergency equipment request"]
         ),
         (
             title: "Bird Strike Passing Transition Altitude",
@@ -42,7 +42,39 @@ public struct RadioVoicePracticeView: View {
             freq: "119.700 MHz (Dammam Approach)",
             atcTransmission: "Saudi 182, climb FL 180, turn left direct GIDIS.",
             standardReadback: "Saudi 182, multiple bird strike through windshield, request maintain 5,000 feet, turning direct Dammam VOR for precautionary return.",
-            keyElements: ["Callsign", "Bird strike damage report", "Altitude request", "Precautionary landing intention"]
+            keyElements: ["Callsign (Saudi 182)", "Bird strike damage report", "Altitude level-off request", "Precautionary return intention"]
+        ),
+        (
+            title: "IFR Clearance & Pushback on Heavy Traffic",
+            airport: "Prince Mohammad Bin Abdulaziz Intl (OEMA)",
+            freq: "121.900 MHz (Madinah Delivery)",
+            atcTransmission: "Saudia 1024, Madinah Delivery, cleared to Riyadh via GIDIS 1P departure, flight plan route, climb FL 150, squawk 4321.",
+            standardReadback: "Cleared to Riyadh, GIDIS 1P departure, flight plan route, climb FL 150, squawk 4321, Saudia 1024.",
+            keyElements: ["Destination & SID routing", "Initial cleared flight level (FL 150)", "Assigned transponder code (Squawk 4321)", "Callsign position at end"]
+        ),
+        (
+            title: "VFR Transit Through Class B Control Zone",
+            airport: "Riyadh Control Zone (OERK / OETR)",
+            freq: "121.500 / 119.000 MHz (Riyadh Approach)",
+            atcTransmission: "Cessna HZ-SKY, Riyadh Approach, squawk 5204, maintain VFR at or below 4,500 feet, transit Class Bravo airspace approved direct Diriyah.",
+            standardReadback: "Squawk 5204, maintain VFR at or below 4,500 feet, transit approved direct Diriyah, HZ-SKY.",
+            keyElements: ["Squawk code (5204)", "VFR altitude ceiling constraint", "Transit routing (direct Diriyah)", "Aircraft registration (HZ-SKY)"]
+        ),
+        (
+            title: "Urgent Medical Evacuation Priority (MEDEVAC)",
+            airport: "King Abdulaziz Intl (OEJN)",
+            freq: "125.100 MHz (Jeddah Approach)",
+            atcTransmission: "Medevac Helicopter 01, Jeddah Approach, radar contact 10 miles northeast, wind 320 at 14, report helipad in sight.",
+            standardReadback: "PAN PAN MEDEVAC, Helicopter 01, critical trauma transfer on board, request straight-in approach to King Fahad Hospital helipad, visual contact with landmark.",
+            keyElements: ["Urgency Medevac call", "Patient criticality statement", "Direct helipad routing request", "Visual acknowledgment"]
+        ),
+        (
+            title: "Radio Communication Failure (NORDO / Squawk 7600)",
+            airport: "Prince Sultan Air Base / Al Kharj (OEKJ)",
+            freq: "118.500 MHz (Al Kharj Tower)",
+            atcTransmission: "[Radio Silence / No Response from ATC]",
+            standardReadback: "Al Kharj Tower, HZ-ABC, Transmitting in the blind, radio receiver failure, squawking 7600, 5 miles south, joining right base runway 31, observing light gun signals.",
+            keyElements: ["Transmitting in the blind declaration", "Squawk 7600 notification", "Position & landing intention", "Light gun signals acknowledgment"]
         )
     ]
 
