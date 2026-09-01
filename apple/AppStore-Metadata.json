@@ -1,0 +1,45 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Fastlane-Community/fastlane/master/deliver/DeliverfileProtocol.json",
+  "app_identifier": "com.flygaca.suite",
+  "sku": "FLYGACA_IOS_APP",
+  "primary_category": "EDUCATION",
+  "secondary_category": "NAVIGATION",
+  "content_rights": {
+    "contains_third_party_content": false,
+    "has_rights": true
+  },
+  "age_rating": {
+    "unrestricted_web_access": false,
+    "gambling": false,
+    "violence": false,
+    "sexual_content": false,
+    "rating": "4+"
+  },
+  "pricing": {
+    "tier": 0,
+    "is_free": true
+  },
+  "urls": {
+    "support_url": "https://flygaca.com/about",
+    "marketing_url": "https://flygaca.com",
+    "privacy_policy_url": "https://flygaca.com/privacy"
+  },
+  "localizations": {
+    "en-US": {
+      "name": "Fly GACA: Saudi Aviation EFB",
+      "subtitle": "Pilot Ground School & GACAR",
+      "promotional_text": "The definitive Saudi aviation companion. 74 GACAR regulations, 55+ cockpit calculators, Captain Adel AI instructor, and 100% offline EFB flight deck tools.",
+      "keywords": "aviation,pilot,GACA,GACAR,EFB,flight,cockpit,crosswind,PPL,CPL,ATPL,Saudi,METAR,TAF,navigation",
+      "release_notes": "Welcome to Fly GACA 1.0 — The complete electronic flight bag and study platform for Saudi civil aviation.\n\n• Full offline access to all 74 GACAR regulations and AIP reference materials\n• 55+ flight calculators (Crosswind, Density Altitude, Weight & Balance CG Envelope, Fuel Planning)\n• Ground School preparation with 1,000+ questions and Leitner SRS flashcards\n• Captain Adel AI regulatory specialist and flight instructor\n• High-definition Kingdom Airspace simulator and aerodrome directory",
+      "description": "Fly GACA is the premier independent educational platform and Electronic Flight Bag (EFB) built specifically for pilots, flight instructors, student cadets, and aviation professionals operating within Saudi Arabia and the Middle East.\n\nDesigned from the ground up for high-stakes cockpit operations and rigorous Ground School exam preparation, Fly GACA works 100% offline in Airplane Mode.\n\nKEY CAPABILITIES:\n\n1. COMPLETE GACAR REGULATORY LIBRARY\n• Instant search and reference for all 74 General Authority of Civil Aviation Regulations (GACAR) Parts, including Part 61 (Pilot Certification), Part 67 (Medical), Part 91 (General Operating Rules), Part 121, Part 135, and Part 141.\n• Deep-linked sections with official citations and version tracking.\n\n2. 55+ FLIGHT DECK CALCULATORS & TOOLS\n• Crosswind & Headwind Resolver with Runway Visualization\n• Pressure & Density Altitude with ISA Deviation\n• Weight & Balance CG Envelope Graph with Multi-Station Stations\n• Fuel Burn, Reserves (§91.151), and Endurance Calculator\n• Standard Rate Turn, True Airspeed (TAS), and Mach Number\n• Raw METAR & TAF Decoder for all Saudi aerodromes (OERK, OEJN, OEDF, OEMA, etc.)\n\n3. GROUND SCHOOL & EXAM PREPARATION (PART 141)\n• Over 1,000 vetted practice questions across PPL, CPL, ATPL, and SAELPT\n• Leitner Spaced-Repetition System (SRS) smart flashcards\n• Timed mock exams matching official GACA testing standards\n\n4. CAPTAIN ADEL (كابتن عادل) — AI FLIGHT INSTRUCTOR\n• Regulatory specialist grounded in official GACAR doctrines with strict 'Cite-or-Refuse' precision.\n• Instant bilingual answers with exact chapter and paragraph citations.\n\n5. COCKPIT RADIO & ATC PRACTICE\n• Interactive Push-To-Talk (PTT) voice practice with authentic Saudi airspace scenarios.\n\nNote: Fly GACA is an independent educational platform operated by BDA Company International and is not officially affiliated with the General Authority of Civil Aviation (GACA)."
+    },
+    "ar-SA": {
+      "name": "فلاي قاكا: طيران وأنظمة GACA",
+      "subtitle": "حقيبة الطيار والمدرسة الأرضية",
+      "promotional_text": "الرفيق الشامل للطيار السعودي: 74 لائحة طيران، 55+ حاسبة قمرة قيادة، مدرّب الذكاء الاصطناعي كابتن عادل، ومدرسة أرضية تعمل بدون إنترنت 100%.",
+      "keywords": "طيران,طيار,قاكا,لوائح,GACA,GACAR,ملاحة,حاسبة,طقس,مطار,السعودية,رخصة,PPL,CPL,كابتن",
+      "release_notes": "أهلاً بكم في الإصدار الأول من تطبيق Fly GACA — الحقيبة الإلكترونية والمنصة التعليمية المتكاملة لعلوم وأنظمة الطيران المدني السعودي.\n\n• وصول كامل بدون إنترنت (Offline) لـ 74 لائحة من لوائح GACAR ودليل الطيران السعودي AIP\n• أكثر من 55 حاسبة ملاحية لقمرة القيادة (الرياح المتقاطعة، كثافة الارتفاع، توازن الطائرة ومركز الثقل، تخطيط الوقود)\n• بنك أسئلة المدرسة الأرضية مع بطاقات المذاكرة الذكية (Leitner SRS) ومحاكي الاختبارات الرسمية\n• كابتن عادل: مدرّب الطيران الذكي المعتمد على أرقام ومواد اللائحة\n• محاكي التخاطب اللاسلكي مع أبراج المراقبة في أجواء المملكة",
+      "description": "فلاي قاكا (Fly GACA) هي الحقيبة الإلكترونية (EFB) والمنصة التعليمية المتقدمة الأولى المصممة خصيصاً للطيارين، المتدربين، المدربين، وعشاق الطيران في المملكة العربية السعودية والشرق الأوسط.\n\nتم تصميم التطبيق ليعمل بنسبة 100% في قمرة القيادة بدون الحاجة لأي اتصال بالإنترنت (Offline Mode)، مع دعم كامل للغة العربية والإنجليزية.\n\nالمميزات والخدمات الرئيسية:\n\n1. المكتبة التنظيمية المفتوحة (74 لائحة GACAR):\n• تصفح وبحث فوري في كافة لوائح الهيئة العامة للطيران المدني، بما في ذلك اللائحة 61 (رخص الطيارين)، اللائحة 67 (اللياقة الطبية)، اللائحة 91 (قواعد التشغيل العامة)، واللوائح 121 و 135 و 141.\n• إمكانية مشاركة والرجوع للمادة والفقرة التنظيمية بدقة متناهية.\n\n2. أكثر من 55 حاسبة وأداة ملاحية لقمرة القيادة:\n• حاسبة الرياح المتقاطعة والرياح المقابلة مع تمثيل مرئي للمدرج.\n• حساب كثافة الارتفاع (Density Altitude) والانحراف عن الغلاف الجوي القياسي (ISA).\n• مخطط توازن الطائرة وتحديد مركز الثقل (Weight & Balance CG Envelope).\n• حاسبة استهلاك الوقود واحتياطيات الطوارئ وفق المادة §91.151.\n• فك شفرات تقارير الطقس الحية (METAR & TAF) لمطارات المملكة (الرياض، جدة، الدمام، المدينة، وغيرها).\n\n3. المدرسة الأرضية والاستعداد لاختبارات الطيران (Part 141):\n• بنك أسئلة تدريبي شامل لرخص PPL و CPL و ATPL واختبار الكفاءة اللغوية SAELPT.\n• نظام التكرار المتباعد الذكي (Leitner SRS) لترسيخ المعلومات.\n• اختبارات تجريبية موقوتة تحاكي بيئة الاختبارات الرسمية.\n\n4. كابتن عادل — مدرّب الطيران بالذكاء الاصطناعي:\n• إجابات فورية دقيقة مبنية على اللوائح الرسمية مع توثيق المادة القانونية.\n\n5. محاكي المحادثات اللاسلكية (ATC Practice):\n• تدريبات صوتية تفاعلية بزر التحدث (PTT) لمحاكاة سيناريوهات الطيران في الأجواء السعودية.\n\nتنويه: فلاي قاكا منصة تعليمية مستقلة تديرها شركة بدع الدولية وليست جهة تابعة للهيئة العامة للطيران المدني."
+    }
+  }
+}
