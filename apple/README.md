@@ -1,80 +1,63 @@
-# Fly GACA iOS — getting started (Mac + Xcode 16+)
+<div align="center">
 
-One shared Swift package (`FlyGACAKit`), one App Store app per study module.
-Read `ARCHITECTURE.md` for the why; this is the how.
+# 🍎 Apple Developer Workspace & XcodeGen Pipeline
+### Shared Swift Package Architecture, Dynamic Project Generation & Target Builds
+#### مساحة عمل تطبيقات آبل · توليد مشاريع Xcode تلقائيًا · حزمة FlyGACAKit
 
-## 1. Build and test the package (no Xcode project needed)
+<p align="center">
+  <img src="https://img.shields.io/badge/Made%20in-Saudi%20Arabia-006C35?style=for-the-badge&labelColor=0a0e12" alt="صنع في السعودية" />
+  <img src="https://img.shields.io/badge/XcodeGen-2.40%2B-FA7343?style=for-the-badge&logo=swift&logoColor=white&labelColor=0a0e12" alt="XcodeGen" />
+  <img src="https://img.shields.io/badge/SPM-FlyGACAKit-F05138?style=for-the-badge&logo=apple&logoColor=white&labelColor=0a0e12" alt="FlyGACAKit" />
+  <img src="https://img.shields.io/badge/Platforms-iOS%20%7C%20iPadOS%2017%2B-000000?style=for-the-badge&logo=apple&logoColor=white&labelColor=0a0e12" alt="iOS 17+" />
+</p>
 
+</div>
+
+---
+
+## 🧭 Architecture Overview
+
+The iOS codebase uses a clean, decoupled architecture:
+1. **Shared Swift Package (`FlyGACAKit`):** Zero external dependencies containing pure domain logic, calculation engines, and SwiftUI views.
+2. **Dynamic Project Generation:** `apple/project.yml` is the sole source of truth; Xcode projects are generated dynamically via XcodeGen and never committed to git.
+3. **Bundled Content:** Raw GACAR json assets are synced into each target bundle as blue folder references for offline use.
+
+---
+
+## ⚡ Step-by-Step Developer Quickstart
+
+### 1. Build and Test Core Package
 ```bash
 cd apple/FlyGACAKit
 swift build
 swift test
 ```
 
-The package has zero external dependencies, so this is fast and needs no
-simulator. The test suite includes the web-parity vectors for spaced repetition
-and exam scoring — keep it green.
-
-## 2. Refresh the per-app content
-
-From the repo root (content comes verbatim from `public/data/` + the pack
-catalog in `src/lib/prepCatalog.ts`):
-
+### 2. Sync Offline Content Packs
 ```bash
-node scripts/build-ios-content.mjs          # ELPT and AIP
-node scripts/build-ios-content.mjs --app elpt
+# From repo root
+node scripts/build-ios-content.mjs
 ```
 
-## 3. Generate the Xcode project (XcodeGen)
-
-The project is **generated, never committed** — `apple/project.yml` is the source
-of truth and `apple/FlyGACA.xcodeproj` is gitignored.
-
+### 3. Generate Xcode Project
 ```bash
-npm run ios:generate      # → apple/FlyGACA.xcodeproj (installs XcodeGen if missing)
+npm run ios:generate
 open apple/FlyGACA.xcodeproj
 ```
 
-`ios:generate` installs XcodeGen for you when it's missing (Homebrew, falling back
-to Mint). If neither is available it prints how to install it — the one-liner is
-`brew install xcodegen`.
+---
 
-The spec wires up, per app target (ELPT, AIP):
+## 🏗 Adding New Study Modules & Apps
 
-- `Apps/Shared/FlyGACAApp.swift` (the shared shell),
-- `Apps/<App>/Content` as a **folder reference** (blue folder), so it ships as a
-  `Content/` directory in the bundle,
-- `Apps/<App>/Assets.xcassets` (app icon),
-- the local `FlyGACAKit` package with its `FeatureUI` product linked,
-- the target's xcconfig (`Apps/<App>/<App>.xcconfig`), which pins the module id,
-  bundle id, display name, the shared `Apps/Shared/Info.plist` and the App Group
-  entitlement (`Apps/Shared/App.entitlements` → `group.com.FlyGACA`).
+1. Declare the new target entry in `apple/project.yml`.
+2. Create `Apps/<App>/<App>.xcconfig` defining `BUNDLE_IDENTIFIER` and `DISPLAY_NAME`.
+3. Generate content assets using `node scripts/build-ios-content.mjs --app <app>`.
+4. Re-run `npm run ios:generate`.
 
-Run any scheme. You should land on that module's home — banks, ground school,
-flashcards, mock and timed exam — all offline. (The Sign in with Apple entitlement
-is declared, but the sign-in flow itself joins later with Firebase — see
-`docs/RUNBOOK-ios-firebase.md` for the console setup it needs.)
+---
 
-You can also build without opening Xcode: `npm run ios:build:elpt` (see
-`docs/RUNBOOK-ios-xcodebuild.md`).
+<div align="center">
 
-## 4. Add the next app (IFR, …)
+<sub>🇸🇦 صنع في السعودية · Made in Saudi Arabia</sub>
 
-Add a three-line target entry to `apple/project.yml`, create
-`Apps/<App>/<App>.xcconfig` (module id + bundle id + display name), generate its
-content (`node scripts/build-ios-content.mjs --app <app>`), add an
-`Assets.xcassets`, and re-run `npm run ios:generate`. `FlyGACAApp.swift` is
-shared — never edit it per app.
-
-## What is deliberately NOT here yet
-
-- Firebase/RevenueCat SDKs and the `PlatformLive` target — the platform half of
-  Phase 4 (see ARCHITECTURE.md §5). Until then the apps run fully offline by
-  design, and `AppServices` mocks stand in for the platform.
-- The per-app `GoogleService-Info.plist` files. The *slot* exists —
-  `apple/project.yml` copies `Apps/<App>/GoogleService-Info.plist` into each
-  bundle, declared `optional` so generation and unsigned builds work without it —
-  but registering the apps and downloading the files is manual console work:
-  `docs/RUNBOOK-ios-firebase.md`. The plists are inert until the SDKs land above.
-- Code signing lives only in CI (`docs/RUNBOOK-ios-signing.md`); local builds run
-  unsigned and need no Apple account.
+</div>

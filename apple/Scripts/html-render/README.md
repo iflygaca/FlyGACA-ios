@@ -1,71 +1,56 @@
-# HTML Screenshot Renderer (Mac-free)
+<div align="center">
 
-A fallback that renders **marketing mockups** of the FlyGACA app screens without
-Xcode or a simulator. It recreates each screen as HTML/CSS using the **exact
-Falcon palette** (`FlyGACAKit/Sources/FeatureUI/Theme.swift`) and the **real
-bundled GACAR content** (`Apps/<App>/Content/*.json`), then rasterizes at native
-device resolutions with Playwright + Chromium.
+# 🖥️ Headless HTML Screenshot Renderer (Mac-Free)
+### Playwright & Chromium-Powered Automated Mockup Rasterizer for iOS App Store
+#### مولد لقطات الشاشة بدون بيئة ماك · محاكاة واجهات SwiftUI · دعم اللغتين
 
-Use this when you need presentable App-Store/website images and don't have a Mac
-handy. For pixel-exact captures of the shipping SwiftUI build, use the simulator
-path instead (`apple/Scripts/capture-screenshots.sh`).
+<p align="center">
+  <img src="https://img.shields.io/badge/Made%20in-Saudi%20Arabia-006C35?style=for-the-badge&labelColor=0a0e12" alt="صنع في السعودية" />
+  <img src="https://img.shields.io/badge/Engine-Playwright%20Chromium-45BA4B?style=for-the-badge&logo=playwright&logoColor=white&labelColor=0a0e12" alt="Playwright" />
+  <img src="https://img.shields.io/badge/Theme-Falcon%20Palette-2D6E8A?style=for-the-badge&labelColor=0a0e12" alt="Falcon Palette" />
+  <img src="https://img.shields.io/badge/Output-Native%20Resolutions-C8A04A?style=for-the-badge&labelColor=0a0e12" alt="Native Resolutions" />
+</p>
 
-## What it produces
+</div>
 
-Up to 10 portrait screens × 2 devices + 3 landscape screens × 2 devices, per app.
-The exact count varies by module: optional screens are emitted only when the
-module ships the content behind them (see the `lessons` note below).
+---
 
-- iPhone 15 Pro — 1179×2556
-- iPad Pro 12.9" — 2048×2732
+## 🧭 Purpose & Architecture
 
-Output lands in `screenshots/raw/<device>/<orientation>/`.
+This tool generates high-resolution **marketing mockups and App Store screenshots** without needing a Mac, Xcode, or iOS Simulator.
 
-## Run
+It recreates every screen as HTML/CSS using the exact design tokens and colors from `FlyGACAKit/Sources/FeatureUI/Theme.swift`, populates them with live bundled JSON content, and renders pixel-exact images via Headless Chromium.
+
+---
+
+## ⚡ Execution Commands
 
 ```bash
-# From repo root. Needs a Chromium/Chrome and playwright-core.
-npm i -D playwright-core        # or: npm i (uses the repo's @playwright/test)
+# Install dependencies
+npm i -D playwright-core
 
-# Optional: point at a specific browser binary
-export CHROME_PATH=/path/to/chromium   # e.g. $(npx playwright install chromium && ...)
+# 1. English (LTR)
+node apple/Scripts/html-render/render.js            # Portrait screenshots
+node apple/Scripts/html-render/render-landscape.js  # Landscape screenshots
 
-# English (default)
-node apple/Scripts/html-render/render.js            # portrait set
-node apple/Scripts/html-render/render-landscape.js  # landscape set
-
-# Arabic — renders RTL with Arabic UI chrome
-SCREENSHOT_LANG=ar node apple/Scripts/html-render/render.js            # portrait set
-SCREENSHOT_LANG=ar node apple/Scripts/html-render/render-landscape.js  # landscape set
+# 2. Arabic (RTL)
+SCREENSHOT_LANG=ar node apple/Scripts/html-render/render.js
+SCREENSHOT_LANG=ar node apple/Scripts/html-render/render-landscape.js
 ```
 
-Environment overrides:
+---
 
-- `CHROME_PATH` — Chromium/Chrome executable. Unset → playwright-core's bundled build.
-- `SCREENSHOT_OUT` — output dir (default `screenshots/raw`).
-- `SCREENSHOT_LANG` — UI language ('en' | 'ar', default 'en'). Arabic renders RTL. Bundled content (questions, bank titles) stays English in every locale.
+## 📱 Supported Resolutions
 
-## Files
+- **iPhone 15/16 Pro:** 1179 × 2556 px (Viewport: 390 × 844 pt)
+- **iPad Pro 12.9":** 2048 × 2732 px (Viewport: 1024 × 1366 pt)
 
-- `screens.js` — one function per screen, returning a full HTML document. Colors
-  are copied verbatim from `Theme.swift`; content is read live from
-  `Apps/<App>/Content/{quiz,groundschool}.json`, so screenshots update when the
-  content does.
-- `render.js` — portrait renderer (every available screen, both devices).
-- `render-landscape.js` — landscape renderer (quiz + exam screens).
+Output images are written to `screenshots/raw/<device>/<orientation>/`.
 
-## Keeping it faithful
+---
 
-`screens.js` mirrors the SwiftUI views:
+<div align="center">
 
-| Screen fn | SwiftUI source |
-| --- | --- |
-| `home` | `ModuleHomeView.swift` |
-| `quizBanks`, `quizQuestion`, `quizAnswered` | `QuizView.swift` + `Components.swift` (`ChoiceRow`) |
-| `flashcard` | `FlashcardView.swift` |
-| `timedStart`, `timedActive` | `QuizView.swift` + `ExamTimerView.swift` |
-| `results` | `Components.swift` (`SessionResultView`, `ResultStat`) |
-| `lessons` | `ModuleHomeView.swift` (`LessonListScreen`) — emitted only for a module that ships `groundschool.json`. No current module does, so this screen is dormant; the code stays generic for whenever one lands. |
+<sub>🇸🇦 صنع في السعودية · Made in Saudi Arabia</sub>
 
-When a view changes (layout, colors, copy), update the matching function here so
-the mockups don't drift from the app.
+</div>

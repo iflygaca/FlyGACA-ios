@@ -2,9 +2,9 @@
 
 <img src="https://raw.githubusercontent.com/FlyGACA/FlyGACA-ios/main/apple/Apps/Shared/Assets.xcassets/AppIcon.appiconset/1024.png" width="128" alt="Fly GACA iOS Falcon Logo" />
 
-# 📱 Fly GACA — Native iOS
+# 📱 Fly GACA — Native iOS Application
 ### The Native SwiftUI Flight Deck & EFB for Saudi Civil Aviation
-#### تطبيق الطيران السعودي المتكامل لأجهزة iPhone و iPad
+#### تطبيق الطيران السعودي المتكامل لأجهزة iPhone و iPad · حقيبة طيران إلكترونية
 
 <p align="center">
   <img src="https://img.shields.io/badge/Made%20in-Saudi%20Arabia-006C35?style=for-the-badge&labelColor=0a0e12" alt="صنع في السعودية" />
@@ -21,23 +21,23 @@
   <img src="https://img.shields.io/badge/Persistence-SwiftData-8E75B2?style=flat-square&labelColor=0a0e12" alt="SwiftData" />
 </p>
 
-[**⚡ Quickstart**](#-building--running) · [**📱 Flagship Modules**](#-flagship-modules) · [**🏗 Architecture**](#-architecture) · [**🛡️ Privacy & Offline**](#-offline-first-principles)
+[**⚡ Quickstart**](#-building--running) · [**📱 Flagship Modules**](#-flagship-modules) · [**🏗 Architecture**](#-architecture) · [**🛡️ Offline Principles**](#-offline-first-principles)
 
 </div>
 
 ---
 
 > [!IMPORTANT]
-> **Independent Educational EFB.** Fly GACA iOS is an independent training and flight tool app and is not affiliated with GACA. The official and authoritative source for all Saudi civil aviation regulations is always [gaca.gov.sa](https://gaca.gov.sa).
+> **Independent Educational EFB.** Fly GACA iOS is an independent training, study, and flight calculator application and is not affiliated with or endorsed by GACA. The official and authoritative source for all Saudi civil aviation regulations is always [gaca.gov.sa](https://gaca.gov.sa).
 
 ---
 
 ## 🛫 Offline-First Principles
 
-Every feature in the Fly GACA iOS app is built for the **flight bag**:
+Built specifically for the **pilot's flight bag (EFB)** in disconnected cockpit environments:
 
 - 📶 **100% Offline Capable:** Entire GACAR regulatory library, Leitner flashcards, question banks, and flight calculators run natively on-device in Airplane Mode.
-- 🗣️ **Native Bilingual Interface:** Dynamic RTL/LTR layout transitions, native Arabic typography, and localized Apple design tokens.
+- 🗣️ **Native Bilingual Interface:** Dynamic RTL/LTR layout transitions, native Arabic typography (Cairo), and localized Apple design tokens.
 - 🔄 **Unified App Group (`group.com.FlyGACA`):** Shared study streak, spaced-repetition memory weights, and mock exam results stay synchronized across the entire app family.
 - 🧮 **Web-Parity Calculation Vectors:** Crosswind, TAS, Weight & Balance, and Density Altitude algorithms are mathematically verified against web test vectors.
 
@@ -62,7 +62,7 @@ Every feature in the Fly GACA iOS app is built for the **flight bag**:
 
 ---
 
-## 🏗 Architecture
+## 🏗 Architecture & Swift Packages
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
@@ -110,8 +110,7 @@ open apple/FlyGACA.xcworkspace
 - Target: `FlyGACA (iOS)`
 - Scheme: `Debug` or `Release`
 
-### 3. Build & Run
-Press `Cmd + R` in Xcode or run via command line:
+### 3. Build & Run Tests
 ```bash
 xcodebuild -workspace apple/FlyGACA.xcworkspace \
   -scheme FlyGACA \
@@ -124,3 +123,11 @@ xcodebuild -workspace apple/FlyGACA.xcworkspace \
 ## 🛡️ License
 
 Distributed under the **MIT License**. See [`LICENSE`](LICENSE) for details.
+
+---
+
+<div align="center">
+
+<sub>🇸🇦 صنع في السعودية · Made in Saudi Arabia</sub>
+
+</div>
