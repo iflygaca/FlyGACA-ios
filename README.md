@@ -251,4 +251,6 @@ MIT © BDA Company International, operating as Fly GACA
 
 [TestFlight Beta](https://testflight.apple.com/join/...) · [Report Issues](https://github.com/ay2m/FlyGACA-ios/issues) · [Star ⭐](https://github.com/ay2m/FlyGACA-ios)
 
+🇸🇦 صنع في السعودية · Made in Saudi Arabia
+
 </div>
