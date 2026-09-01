@@ -22,6 +22,14 @@ final class FirestoreSyncIntegrationTests: XCTestCase {
         var callCount = 0
         var offlineMode = false
 
+        func upload(_ summary: ProgressSummary) async throws {
+            callCount += 1
+            if offlineMode {
+                lastSyncError = NSError(domain: "Firestore", code: -1, userInfo: [NSLocalizedDescriptionKey: "Offline"])
+                throw lastSyncError!
+            }
+        }
+
         func syncProgress(_ progress: StudyProgress, for userId: String) async throws {
             callCount += 1
             if offlineMode {
