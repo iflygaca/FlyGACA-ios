@@ -23,5 +23,8 @@
     "ios:screenshots:store": "node apple/Scripts/html-render/render-store.js",
     "ios:screenshots:store:ar": "CAPTION_LANG=ar node apple/Scripts/html-render/render-store.js",
     "sync:content": "bash scripts/sync-content.sh"
+  },
+  "devDependencies": {
+    "playwright-core": "^1.62.1"
   }
 }
