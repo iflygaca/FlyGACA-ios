@@ -12,6 +12,42 @@
 
 </div>
 
+## 🏗 Fly GACA Family
+
+[📚 FlyGACA Web & API](https://github.com/ay2m/FlyGACA) • 
+[🤖 Captain Adel AI](https://github.com/ay2m/Captain-Adel) • 
+[📱 FlyGACA iOS](https://github.com/ay2m/FlyGACA-ios) • 
+[🏢 Office & Governance](https://github.com/ay2m/Office)
+
+<!-- 
+  README ENHANCEMENT AUDIT — ay2m/FlyGACA-ios
+  Last audit: 2026-09-04 by claude-readme-supervisor
+  Status: READY for phase 1 (family links + audit blocks added)
+  
+  DRIFT RISKS IDENTIFIED:
+  - No app bundle size metrics (ELPT/AIP) — binary footprint unknown to readers
+  - No question count per app — content scope not transparent
+  - No test count badge (5 test targets in Package.swift) — Swift test coverage hidden
+  - "Coming Soon" milestones lack ETAs — readers can't gauge timeline
+  - ELPT/AIP links don't point to App Store or TestFlight beta pages
+  - No bilingual status indicator — Arabic localization readiness unclear
+  - No reference to FlyGACAKit dependency or Content/ sync process
+  
+  PHASE 2 TASKS:
+  - Extract app bundle size from last successful `ios:build:release:all` artifact
+  - Count quiz.json entries per app (ELPT module.json + quiz.json line count)
+  - Extract swift test count from `Package.swift` testTargets array
+  - Parse git tags for version/timeline context
+  - Gather TestFlight beta tester count from App Store Connect API
+  
+  PHASE 3 TASKS:
+  - Create `.github/workflows/readme-supervisor.yml` with App Store Connect API credential
+  - Link "ELPT" and "AIP" to App Store/TestFlight pages
+  - Add inline bundle size and question count to app descriptions
+  
+  CROSS-REPO SYNC CHECK: Family contract parity ✓ (ay2m/Office, ay2m/FlyGACA aligned)
+-->
+
 ---
 
 ## 🎯 What's this?
