@@ -43,7 +43,7 @@ there).
   when sign-in ships: enable the capability on both App IDs, group AIP under ELPT, regenerate the
   profiles.
 - ~~**[platform] Create the signing secrets and the store records.**~~ **Done 2026-08-16.**
-  Run [#69](https://github.com/ay2m/FlyGACA-ios/actions/runs/31916879238) signed, exported and
+  Run [#69](https://github.com/iflygaca/FlyGACA-ios/actions/runs/31916879238) signed, exported and
   uploaded both apps — so the App Group, both App IDs, the distribution cert, both
   `FlyGACA <APP> AppStore` profiles, the App Store Connect API key and the nine GitHub secrets
   all exist and work end to end. `1.0.0 (69)` is in TestFlight for ELPT and AIP.

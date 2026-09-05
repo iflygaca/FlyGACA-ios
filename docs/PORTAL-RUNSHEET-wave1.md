@@ -56,7 +56,7 @@ carry the App Groups capability).
 > profile fails the signed build.
 >
 > **The portal holds `group.com.FlyGACA`.** Workflow run
-> [#69](https://github.com/ay2m/FlyGACA-ios/actions/runs/31916879238) (2026-08-16, commit
+> [#69](https://github.com/iflygaca/FlyGACA-ios/actions/runs/31916879238) (2026-08-16, commit
 > `1fd37be`) signed, exported and uploaded both `elpt` and `aip` to TestFlight — every step
 > green. `xcodebuild` validates a target's entitlements against its provisioning profile at both
 > archive-signing and `-exportArchive`, so an unregistered or mis-named group could not have
@@ -181,7 +181,7 @@ bash scripts/native/set-signing-secrets.sh \
 count and aborts on anything else — the PPL profile is *not* an argument, since that module
 is paused and `ios-testflight`'s matrix is `elpt · aip`. `KEYCHAIN_PASSWORD` defaults to a
 random string. `REPO` defaults to whatever this checkout's `origin` remote points at
-(`ay2m/FlyGACA-ios`), so the secrets land on the repo whose workflow consumes them; override
+(`iflygaca/FlyGACA-ios`), so the secrets land on the repo whose workflow consumes them; override
 with `REPO=owner/name` only if you mean a different one. Your 10-char **Team ID** is on the
 portal's Membership page.
 
@@ -204,7 +204,7 @@ with `base64 -w0 <file>` on Linux, `base64 -i <file>` on macOS):
 ## 5. First run + verification
 
 > **Status — 2026-08-16: this section is done.** Run
-> [#69](https://github.com/ay2m/FlyGACA-ios/actions/runs/31916879238) (push to `main`, commit
+> [#69](https://github.com/iflygaca/FlyGACA-ios/actions/runs/31916879238) (push to `main`, commit
 > `1fd37be`) took both apps all the way to TestFlight: `TestFlight (elpt)` and `TestFlight (aip)`
 > each imported the signing assets, built signed, exported the `.ipa` and uploaded it via
 > `altool` — all green. Apple accepted and processed both, and **1.0.0 (69)** now appears in

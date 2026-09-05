@@ -30,7 +30,7 @@ changes; both are denser and more authoritative than this file for anything Swif
 | **ay2m/FlyGACA** (this repo) | Native iOS app family — FlyGACAKit + the ELPT and AIP app targets |
 | `ay2m/FlyGACA` | flygaca.com — React/Vite PWA, Firebase backend, regulatory corpus + content pipelines. **Source of truth** for content (`public/data/`, `src/lib/prepCatalog.ts`) and for `scripts/build-ios-content.mjs` / `npm run ios:icons`, which this repo does not have. |
 | `ay2m/Captain-Adel` | The AI flight-instructor service (captadel.com) |
-| `ay2m/FlyGACA-ios` · `ay2m/ELPT` · `ay2m/AIP` (shipping) · `ay2m/PPL` · `ay2m/CPL` · `ay2m/IR` · `ay2m/ATPL` (paused) | Per-app **App Store metadata repos** — store listing copy (EN/AR), screenshots, per-app roadmap. They hold **no source code**; they reference this repo's `apple/Apps/<Module>/` as the code home. If a task is "update the App Store description/screenshots for X", it belongs in that module's own repo, not here. |
+| `iflygaca/FlyGACA-ios` · `ay2m/ELPT` · `ay2m/AIP` (shipping) · `ay2m/PPL` · `ay2m/CPL` · `ay2m/IR` · `ay2m/ATPL` (paused) | Per-app **App Store metadata repos** — store listing copy (EN/AR), screenshots, per-app roadmap. They hold **no source code**; they reference this repo's `apple/Apps/<Module>/` as the code home. If a task is "update the App Store description/screenshots for X", it belongs in that module's own repo, not here. |
 | `ay2m/Office` | Business/governance/legal/finance docs |
 
 **This repo is the sole home of the native app code.** The monorepo used to carry a duplicate
@@ -293,7 +293,7 @@ These are one-time human/console setup, not something to script from first princ
   App Group entitlement rules out wildcard provisioning profiles. Nine named GitHub secrets;
   `scripts/native/set-signing-secrets.sh` uploads them from local files via `gh secret set`
   (it takes **exactly four** files — p12 · elpt · aip · p8 — and derives the target repo from
-  this checkout's `origin` remote, i.e. `ay2m/FlyGACA-ios`; it used to hardcode a different
+  this checkout's `origin` remote, i.e. `iflygaca/FlyGACA-ios`; it used to hardcode a different
   default, so pass `REPO=` only when you deliberately mean another repo). Provisioning profile names are
   load-bearing (`FlyGACA <APP> AppStore` — passed as `PROVISIONING_PROFILE_SPECIFIER`). Note
   `apple/Apps/Shared/App.entitlements` **no longer declares Sign in with Apple** (removed
