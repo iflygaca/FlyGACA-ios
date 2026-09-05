@@ -28,7 +28,7 @@ there).
   carries its own differently numbered "Phase Roadmap" — a known divergent snapshot; where they
   disagree, `ARCHITECTURE.md` wins. The family lineup and wave plan stay canonical in the
   monorepo's `docs/APPS-FAMILY-ROADMAP.md`; each app's store-listing milestones live in its own
-  metadata repo (`FlyGACA/ELPT`, `FlyGACA/AIP`). This file wins only for "what this repo does
+  metadata repo (`ay2m/ELPT`, `ay2m/AIP`). This file wins only for "what this repo does
   next".
 
 ## Now — light the path to TestFlight
@@ -43,7 +43,7 @@ there).
   when sign-in ships: enable the capability on both App IDs, group AIP under ELPT, regenerate the
   profiles.
 - ~~**[platform] Create the signing secrets and the store records.**~~ **Done 2026-08-16.**
-  Run [#69](https://github.com/ay2m/FlyGACA-ios/actions/runs/31916879238) signed, exported and
+  Run [#69](https://github.com/iflygaca/FlyGACA-ios/actions/runs/31916879238) signed, exported and
   uploaded both apps — so the App Group, both App IDs, the distribution cert, both
   `FlyGACA <APP> AppStore` profiles, the App Store Connect API key and the nine GitHub secrets
   all exist and work end to end. `1.0.0 (69)` is in TestFlight for ELPT and AIP.

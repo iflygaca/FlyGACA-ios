@@ -41,11 +41,11 @@ products cite and defer to. The public fronts are **flygaca.com** and **captadel
 
 | Repo | Role |
 | --- | --- |
-| [FlyGACA/FlyGACA-app](https://github.com/FlyGACA/FlyGACA-app) | **The web monorepo** — flygaca.com: React/Vite PWA (library, tools, study, chat, accounts), the Firebase Functions backend (`functions/`), and the **source of truth** for the regulatory corpus (`public/data/`) and the pack catalog (`src/lib/prepCatalog.ts`), plus all content pipelines. |
-| [FlyGACA/Captain-Adel](https://github.com/FlyGACA/Captain-Adel) | **The AI flight instructor** — captadel.com: one Node/Express service; the retrieval+answer brain (`src/brain/`) is the single source of truth and also powers Fly GACA's chat server-to-server. |
-| [ay2m/FlyGACA](https://github.com/ay2m/FlyGACA) (this repo) | **The native iOS family** — one shared Swift package (`FlyGACAKit`) + one App Store app per study module: ELPT and AIP. The licence-exam modules (PPL, CPL, IR, ATPL) are paused. |
-| [FlyGACA/ELPT](https://github.com/FlyGACA/ELPT) · [AIP](https://github.com/FlyGACA/AIP) · and the parked [PPL](https://github.com/FlyGACA/PPL) · [CPL](https://github.com/FlyGACA/CPL) · [IR](https://github.com/FlyGACA/IR) · [ATPL](https://github.com/FlyGACA/ATPL) | **The six store-metadata repos** — App Store Connect listing copy (EN + AR), screenshots, and a per-app roadmap. No source code; each names this repo's `apple/Apps/<Module>/` as the code home. Four are parked with their metadata retained. |
-| [FlyGACA/Office](https://github.com/FlyGACA/Office) | **The operating documents** — strategy, governance, legal, finance, compliance, GTM, brand: the company's paperwork, not product code. Its contents are sensitive; product repos take from it only public-safe facts. |
+| [ay2m/FlyGACA](https://github.com/ay2m/FlyGACA) | **The web monorepo** — flygaca.com: React/Vite PWA (library, tools, study, chat, accounts), the Firebase Functions backend (`functions/`), and the **source of truth** for the regulatory corpus (`public/data/`) and the pack catalog (`src/lib/prepCatalog.ts`), plus all content pipelines. |
+| [ay2m/Captain-Adel](https://github.com/ay2m/Captain-Adel) | **The AI flight instructor** — captadel.com: one Node/Express service; the retrieval+answer brain (`src/brain/`) is the single source of truth and also powers Fly GACA's chat server-to-server. |
+| [iflygaca/FlyGACA-ios](https://github.com/iflygaca/FlyGACA-ios) (this repo) | **The native iOS family** — one shared Swift package (`FlyGACAKit`) + one App Store app per study module: ELPT and AIP. The licence-exam modules (PPL, CPL, IR, ATPL) are paused. |
+| [iflygaca/FlyGACA-ios](https://github.com/iflygaca/FlyGACA-ios) · [ay2m/ELPT](https://github.com/ay2m/ELPT) · [ay2m/AIP](https://github.com/ay2m/AIP) · and the parked [ay2m/PPL](https://github.com/ay2m/PPL) · [ay2m/CPL](https://github.com/ay2m/CPL) · [ay2m/IR](https://github.com/ay2m/IR) · [ay2m/ATPL](https://github.com/ay2m/ATPL) | **The six store-metadata repos** — App Store Connect listing copy (EN + AR), screenshots, and a per-app roadmap. No source code; each names this repo's `apple/Apps/<Module>/` as the code home. Four are parked with their metadata retained. |
+| [ay2m/Office](https://github.com/ay2m/Office) | **The operating documents** — strategy, governance, legal, finance, compliance, GTM, brand: the company's paperwork, not product code. Its contents are sensitive; product repos take from it only public-safe facts. |
 
 ### How content flows (one direction, always)
 
@@ -327,9 +327,9 @@ repos.)*
 | Build, test, ship an app from here | [`README.md`](./README.md) → [`docs/RUNBOOK-ios-release.md`](./docs/RUNBOOK-ios-release.md) (and [`docs/README.md`](./docs/README.md) for which runbook to trust) |
 | Understand the iOS architecture deeply | `apple/ARCHITECTURE.md` (owned in this repo) |
 | Work on store listings / ASO | [`SEO-PLAN.md`](./SEO-PLAN.md), then the metadata repos |
-| Touch the corpus, packs, web app, or backend | the monorepo — [FlyGACA/FlyGACA-app](https://github.com/FlyGACA/FlyGACA-app) (`CLAUDE.md`, `ROADMAP.md`, `docs/`) |
-| Touch the AI instructor | [FlyGACA/Captain-Adel](https://github.com/FlyGACA/Captain-Adel) (`CLAUDE.md`, `evals/`) |
-| Company / operating questions | [FlyGACA/Office](https://github.com/FlyGACA/Office) — minimum necessary, it is sensitive |
+| Touch the corpus, packs, web app, or backend | the monorepo — [ay2m/FlyGACA](https://github.com/ay2m/FlyGACA) (`CLAUDE.md`, `ROADMAP.md`, `docs/`) |
+| Touch the AI instructor | [ay2m/Captain-Adel](https://github.com/ay2m/Captain-Adel) (`CLAUDE.md`, `evals/`) |
+| Company / operating questions | [ay2m/Office](https://github.com/ay2m/Office) — minimum necessary, it is sensitive |
 
 ### The benediction
 

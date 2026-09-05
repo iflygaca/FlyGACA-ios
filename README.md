@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="https://raw.githubusercontent.com/iflygaca/FlyGACA-ios/main/apple/Apps/Shared/Assets.xcassets/AppIcon.appiconset/1024.png" width="128" alt="Fly GACA iOS Falcon Logo" />
+
 # 📱 **Fly GACA iOS**
 > *Native flight deck for your pocket*
 
@@ -16,11 +18,11 @@
 
 [📚 FlyGACA Web & API](https://github.com/ay2m/FlyGACA) • 
 [🤖 Captain Adel AI](https://github.com/ay2m/Captain-Adel) • 
-[📱 FlyGACA iOS](https://github.com/ay2m/FlyGACA-ios) • 
+[📱 FlyGACA iOS](https://github.com/iflygaca/FlyGACA-ios) • 
 [🏢 Office & Governance](https://github.com/ay2m/Office)
 
 <!-- 
-  README ENHANCEMENT AUDIT — ay2m/FlyGACA-ios
+  README ENHANCEMENT AUDIT — iflygaca/FlyGACA-ios
   Last audit: 2026-09-04 by claude-readme-supervisor
   Status: READY for phase 1 (family links + audit blocks added)
   
@@ -102,7 +104,7 @@ All apps in the family share study progress. Switch between ELPT and AIP—your 
 
 ### 1️⃣ Clone & Setup
 ```bash
-git clone https://github.com/ay2m/FlyGACA-ios.git
+git clone https://github.com/iflygaca/FlyGACA-ios.git
 cd FlyGACA-ios
 npm install              # Thin package.json for scripts only
 ```
@@ -285,7 +287,7 @@ MIT © BDA Company International, operating as Fly GACA
 
 **Study offline. Fly prepared. Master the regulations.**
 
-[TestFlight Beta](https://testflight.apple.com/join/...) · [Report Issues](https://github.com/ay2m/FlyGACA-ios/issues) · [Star ⭐](https://github.com/ay2m/FlyGACA-ios)
+[TestFlight Beta](https://testflight.apple.com/join/...) · [Report Issues](https://github.com/iflygaca/FlyGACA-ios/issues) · [Star ⭐](https://github.com/iflygaca/FlyGACA-ios)
 
 🇸🇦 صنع في السعودية · Made in Saudi Arabia
 

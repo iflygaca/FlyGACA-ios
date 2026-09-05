@@ -22,7 +22,7 @@ One cause, three surfaces:
 
 - **flygaca.com** — the open regulatory library and study platform: the corpus, search, guides,
   flight tools, study packs and the reader, free to browse. The web monorepo
-  ([FlyGACA/FlyGACA-app](https://github.com/FlyGACA/FlyGACA-app)) is the source of truth for
+  ([ay2m/FlyGACA](https://github.com/ay2m/FlyGACA)) is the source of truth for
   the corpus and the pack catalog.
 - **Captain Adel** — the AI flight instructor ([captadel.com](https://captadel.com)): answers
   GACAR questions with exact Part/section citations, and refuses to guess when it can't ground
