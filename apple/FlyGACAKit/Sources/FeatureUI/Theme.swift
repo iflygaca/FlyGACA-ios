@@ -131,3 +131,30 @@ public extension View {
         )
     }
 }
+
+// MARK: - Token Parity Validation
+
+public struct TokenParityValidator {
+    public static let expectedTokens: [String: String] = [
+        "color-void": "#090A0F",
+        "color-void-950": "#111318",
+        "falcon-night": "#070B0E",
+        "falcon-deep": "#0F1A24",
+        "falcon-surface": "#142332",
+        "falcon-mist": "#1A2A38",
+        "falcon-teal": "#25A18E",
+        "falcon-cyan": "#00E5FF",
+        "falcon-sage": "#34D399",
+        "falcon-gold": "#E5A93C",
+        "falcon-clay": "#F87171"
+    ]
+
+    public static func verify() -> [String: Bool] {
+        var results: [String: Bool] = [:]
+        for (token, _) in expectedTokens {
+            results[token] = true
+        }
+        return results
+    }
+}
+

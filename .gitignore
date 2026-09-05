@@ -21,3 +21,6 @@ screenshots/
 
 # Node (only the screenshot renderer uses it)
 node_modules/
+
+# Metrics collection (git-ignored)
+.stats.json
