@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://raw.githubusercontent.com/FlyGACA/FlyGACA-ios/main/apple/Apps/Shared/Assets.xcassets/AppIcon.appiconset/1024.png" width="128" alt="Fly GACA iOS Falcon Logo" />
+<img src="https://raw.githubusercontent.com/ay2m/FlyGACA-ios/main/apple/Apps/Shared/Assets.xcassets/AppIcon.appiconset/1024.png" width="128" alt="Fly GACA iOS Falcon Logo" />
 
 # 📱 Fly GACA — Native iOS Application
 ### The Native SwiftUI Flight Deck & EFB for Saudi Civil Aviation

@@ -36,10 +36,10 @@ changing both platforms together.
 
 - **Kit/Swift, shared shell, `project.yml`, `apple/Scripts`, the `apple/` docs** → change **here**.
 - **Content (quiz banks, module manifests) and icons** → change the corpus / `prepCatalog.ts` in
-  the [monorepo](https://github.com/iflygaca/FlyGACA), then `sync-content.sh` here (review the
+  the [monorepo](https://github.com/ay2m/FlyGACA), then `sync-content.sh` here (review the
   diff before committing). Don't hand-edit `Content/` or `Assets.xcassets` — a sync overwrites them.
 - **Store listing copy, keywords, screenshots** → the app's own metadata repo
-  (`FlyGACA/ELPT`, `FlyGACA/AIP`), not here.
+  (`ay2m/ELPT`, `ay2m/AIP`), not here.
 
 ## Branches, PRs, CI
 

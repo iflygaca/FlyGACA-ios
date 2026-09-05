@@ -3,7 +3,7 @@
 > **Note:** this runbook is owned here — the monorepo's `apple/` mirror was retired 2026-08, so
 > this is the real source, not a synced copy. Only the CONTENT generators
 > (`build-ios-content.mjs`, `npm run ios:icons`) + the corpus + `src/lib/prepCatalog.ts` live in
-> the [FlyGACA](https://github.com/iflygaca/FlyGACA) monorepo; the per-app `Content/`
+> the [FlyGACA](https://github.com/ay2m/FlyGACA) monorepo; the per-app `Content/`
 > folders and icons are committed snapshots here, refreshed with `bash scripts/sync-content.sh`
 > pointed at a FlyGACA-app clone. Everything else is native to this repo.
 

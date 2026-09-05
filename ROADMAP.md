@@ -28,7 +28,7 @@ there).
   carries its own differently numbered "Phase Roadmap" — a known divergent snapshot; where they
   disagree, `ARCHITECTURE.md` wins. The family lineup and wave plan stay canonical in the
   monorepo's `docs/APPS-FAMILY-ROADMAP.md`; each app's store-listing milestones live in its own
-  metadata repo (`FlyGACA/ELPT`, `FlyGACA/AIP`). This file wins only for "what this repo does
+  metadata repo (`ay2m/ELPT`, `ay2m/AIP`). This file wins only for "what this repo does
   next".
 
 ## Now — light the path to TestFlight

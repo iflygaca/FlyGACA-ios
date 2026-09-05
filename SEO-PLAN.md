@@ -15,7 +15,7 @@ and the store strategy docs; nothing has been executed against App Store Connect
 search for flygaca.com is owned by the monorepo's `SEO-PLAN.md` (+ the `flygaca-seo` skill) —
 none of it is duplicated here. Store submission *mechanics* (lineup, pricing, App Store Connect
 setup, review-survival, cross-promo rules) are owned by the monorepo's `docs/STORE-SUITE.md`.
-The **shipping** listing strings live in the metadata repos (`FlyGACA/ELPT`, `FlyGACA/AIP`,
+The **shipping** listing strings live in the metadata repos (`ay2m/ELPT`, `ay2m/AIP`,
 fastlane `deliver` layout, EN + AR, CI-gated by each repo's `check-metadata.mjs`) — adoption of
 anything drafted here happens as PRs to those repos, never by editing this file into a copy
 deck.

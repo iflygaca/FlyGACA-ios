@@ -18,7 +18,7 @@
 >   now orphaned. Harmless; delete at leisure.
 
 Every value below is pre-filled from this repo and the metadata repos
-(`FlyGACA/ELPT` · `AIP`, plus the parked `FlyGACA/PPL`), in click order, so the portal
+(`ay2m/ELPT` · `AIP`, plus the parked `ay2m/PPL`), in click order, so the portal
 session needs no improvisation. Companions: [`RUNBOOK-ios-signing.md`](./RUNBOOK-ios-signing.md) (the why +
 troubleshooting), [`RUNBOOK-ios-signing-CHECKLIST.md`](./RUNBOOK-ios-signing-CHECKLIST.md)
 (the boxes this expands), [`RUNBOOK-ios-firebase.md`](./RUNBOOK-ios-firebase.md) (§4a Sign

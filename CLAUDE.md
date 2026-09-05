@@ -28,13 +28,13 @@ changes; both are denser and more authoritative than this file for anything Swif
 | Repo | Holds |
 |---|---|
 | **ay2m/FlyGACA** (this repo) | Native iOS app family — FlyGACAKit + the ELPT and AIP app targets |
-| `iflygaca/FlyGACA` | flygaca.com — React/Vite PWA, Firebase backend, regulatory corpus + content pipelines. **Source of truth** for content (`public/data/`, `src/lib/prepCatalog.ts`) and for `scripts/build-ios-content.mjs` / `npm run ios:icons`, which this repo does not have. |
-| `iflygaca/Captain-Adel` | The AI flight-instructor service (captadel.com) |
-| `iflygaca/FlyGACA-ios` · `ELPT` · `AIP` (shipping) · `PPL` · `CPL` · `IR` · `ATPL` (paused) | Per-app **App Store metadata repos** — store listing copy (EN/AR), screenshots, per-app roadmap. They hold **no source code**; they reference this repo's `apple/Apps/<Module>/` as the code home. If a task is "update the App Store description/screenshots for X", it belongs in that module's own repo, not here. |
-| `iflygaca/Office` | Business/governance/legal/finance docs |
+| `ay2m/FlyGACA` | flygaca.com — React/Vite PWA, Firebase backend, regulatory corpus + content pipelines. **Source of truth** for content (`public/data/`, `src/lib/prepCatalog.ts`) and for `scripts/build-ios-content.mjs` / `npm run ios:icons`, which this repo does not have. |
+| `ay2m/Captain-Adel` | The AI flight-instructor service (captadel.com) |
+| `ay2m/FlyGACA-ios` · `ay2m/ELPT` · `ay2m/AIP` (shipping) · `ay2m/PPL` · `ay2m/CPL` · `ay2m/IR` · `ay2m/ATPL` (paused) | Per-app **App Store metadata repos** — store listing copy (EN/AR), screenshots, per-app roadmap. They hold **no source code**; they reference this repo's `apple/Apps/<Module>/` as the code home. If a task is "update the App Store description/screenshots for X", it belongs in that module's own repo, not here. |
+| `ay2m/Office` | Business/governance/legal/finance docs |
 
 **This repo is the sole home of the native app code.** The monorepo used to carry a duplicate
-`apple/` mirror; it was **retired 2026-08** (`iflygaca/FlyGACA` no longer has an `apple/` tree). The
+`apple/` mirror; it was **retired 2026-08** (`ay2m/FlyGACA` no longer has an `apple/` tree). The
 split: this repo owns all Swift + Xcode config (`FlyGACAKit`, `project.yml`, `apple/Scripts`,
 `ARCHITECTURE.md`, `README.md`) and hand-edits them here; the monorepo stays the **source of
 truth for content only** — its `build-ios-content.mjs` / `gen-app-icons.mjs` generate each app's
@@ -65,7 +65,7 @@ commit and the guardrails in `.claude/skills/THIRD_PARTY_NOTICES.md`. `.claude/s
 registers the upstream skills marketplace (registered, not enabled).
 
 One caveat on cross-repo links: the monorepo lost its `docs/` tree in 2026-08, so pointers from
-here into `iflygaca/FlyGACA/docs/…` (e.g. `APPS-FAMILY-ROADMAP.md`, referenced from `ROADMAP.md`) no
+here into `ay2m/FlyGACA/docs/…` (e.g. `APPS-FAMILY-ROADMAP.md`, referenced from `ROADMAP.md`) no
 longer resolve. Content generation itself is unaffected — `scripts/build-ios-content.mjs`,
 `gen-app-icons.mjs`, `public/data/` and `src/lib/prepCatalog.ts` are all still there.
 
@@ -121,7 +121,7 @@ Rules that keep this healthy — do not violate them:
 
 ### Cross-platform parity — do not break silently
 
-These semantics are shared with the web app (`iflygaca/FlyGACA`); users move between platforms:
+These semantics are shared with the web app (`ay2m/FlyGACA`); users move between platforms:
 
 - **SRS** = a literal port of `src/calc/study/srs.ts`: boxes 0–5, intervals
   `[0, 1, 3, 7, 14, 30]` days, correct promotes (capped), wrong resets to 0, unseen always
@@ -164,12 +164,12 @@ treat them as optional). Snapshots can lag the web packs as the corpus moves —
 monorepo catalog; ELPT additionally bundles a scenario bank in `quiz-extra.json`).
 **This repo owns its Swift code but NOT the content bundler** — `build-ios-content.mjs` /
 `gen-app-icons.mjs`, the regulatory corpus (`public/data/`), and the pack catalog
-(`src/lib/prepCatalog.ts`) all live in the `iflygaca/FlyGACA` monorepo, which stays the source of
+(`src/lib/prepCatalog.ts`) all live in the `ay2m/FlyGACA` monorepo, which stays the source of
 truth for content. Here, `Content/` folders and the per-app icons are **committed snapshots**,
 refreshed by:
 
 ```bash
-# with an iflygaca/FlyGACA clone next to this repo (default ../FlyGACA), or pass its path
+# with an ay2m/FlyGACA clone next to this repo (default ../FlyGACA), or pass its path
 bash scripts/sync-content.sh [path-to-FlyGACA]
 ```
 
